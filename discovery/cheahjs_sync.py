@@ -38,7 +38,7 @@ SWEBENCH_SCORES: dict[str, float] = {
     # Groq (by model_param)
     "meta-llama/llama-4-scout-17b-16e-instruct": 0.30,
     "llama-3.3-70b-versatile": 0.27,
-    "qwen-qwen3-32b": 0.35,
+    "qwen/qwen3-32b": 0.35,
     "llama-3.1-8b-instant": 0.15,
 }
 
@@ -158,11 +158,11 @@ GROQ_NAME_MAP: dict[str, str] = {
     "Llama 3.1 8B": "llama-3.1-8b-instant",
     "Llama 3.3 70B": "llama-3.3-70b-versatile",
     "Llama 4 Scout Instruct": "meta-llama/llama-4-scout-17b-16e-instruct",
-    "qwen/qwen3-32b": "qwen-qwen3-32b",
-    "openai/gpt-oss-120b": "openai-gpt-oss-120b",
-    "openai/gpt-oss-20b": "openai-gpt-oss-20b",
-    "groq/compound": "compound-beta",
-    "groq/compound-mini": "compound-beta-mini",
+    "qwen/qwen3-32b": "qwen/qwen3-32b",
+    "openai/gpt-oss-120b": "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b": "openai/gpt-oss-20b",
+    "groq/compound": "groq/compound",
+    "groq/compound-mini": "groq/compound-mini",
 }
 
 CEREBRAS_NAME_MAP: dict[str, str] = {
@@ -193,8 +193,11 @@ def parse_html_table_provider(
             else:
                 continue
         limits = parse_limits(limits_text.replace("<br>", "\n"))
+        # Registry ID: strip leading provider-name prefix from model_id to avoid doubling
+        # e.g. model_id="groq/compound" → id="groq/compound" not "groq/groq/compound"
+        id_suffix = model_id[len(provider) + 1:] if model_id.startswith(f"{provider}/") else model_id
         models.append({
-            "id": f"{provider}/{model_id}",
+            "id": f"{provider}/{id_suffix}",
             "display_name": display_name,
             "provider": provider,
             "openai_compat": True,
