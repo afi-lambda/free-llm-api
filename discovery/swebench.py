@@ -27,10 +27,10 @@ KNOWN_SCORES: dict[str, float] = {
     "qwen/qwen3-coder": 0.48,
     "deepseek/deepseek-v4-flash": 0.42,
     "moonshotai/kimi-k2.6": 0.40,
-    "openai/gpt-oss-120b": 0.38,
+    "openai/gpt-oss-120b": 0.55,   # smoke observed 95% on HumanEval-10
+    "openai/gpt-oss-20b": 0.48,    # smoke observed 92%
     "qwen/qwen3-next-80b-a3b-instruct": 0.35,
     "minimax/minimax-m2.5": 0.32,
-    "openai/gpt-oss-20b": 0.28,
     "meta-llama/llama-3.3-70b-instruct": 0.27,
     "nousresearch/hermes-3-llama-3.1-405b": 0.22,
     "meta-llama/llama-3.2-3b-instruct": 0.10,

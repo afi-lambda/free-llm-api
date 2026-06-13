@@ -17,7 +17,11 @@ import httpx
 
 REGISTRY = Path(__file__).parent.parent / "registry.json"
 BENCHMARK = Path(__file__).parent.parent / "benchmark" / "humaneval_10.json"
-TIMEOUT = 30.0
+TIMEOUT = 45.0
+# Thinking models consume tokens internally before producing output
+THINKING_MODELS = {"gemini-2.5", "gemini-3", "qwen3", "deepseek-r1"}
+DEFAULT_MAX_TOKENS = 512
+THINKING_MAX_TOKENS = 2048
 
 PROVIDER_HEADERS: dict[str, dict] = {
     "openrouter": {
@@ -82,6 +86,10 @@ async def score_model(
     total_passed = 0
     total_tests = 0
 
+    param = model["model_param"].lower()
+    is_thinking = any(kw in param for kw in THINKING_MODELS)
+    max_tok = THINKING_MAX_TOKENS if is_thinking else DEFAULT_MAX_TOKENS
+
     for problem in problems:
         payload = {
             "model": model["model_param"],
@@ -89,7 +97,7 @@ async def score_model(
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": problem["prompt"]},
             ],
-            "max_tokens": 512,
+            "max_tokens": max_tok,
             "temperature": 0.0,
         }
         try:
@@ -99,10 +107,12 @@ async def score_model(
                 json=payload,
                 timeout=TIMEOUT,
             )
+            if resp.status_code == 429:
+                return model["id"], -1.0  # quota exhausted — skip, don't score 0
             if resp.status_code != 200:
                 total_tests += len(problem["tests"])
                 continue
-            raw = resp.json()["choices"][0]["message"]["content"]
+            raw = resp.json()["choices"][0]["message"].get("content") or ""
             code = extract_code(raw, problem["entry_point"])
             p, t = run_tests(code, problem)
             total_passed += p
@@ -160,7 +170,7 @@ def main() -> None:
             continue
         new_score = scores[model["id"]]
         if new_score < 0:
-            continue  # skipped (no key)
+            continue  # skipped (no key or quota exhausted)
         old_score = model.get("swebench_score", 0.0)
         new_tier = assign_tier(new_score)
         model["smoke_score"] = round(new_score, 3)
@@ -179,7 +189,7 @@ def main() -> None:
     for model in sorted(candidates, key=lambda m: -scores.get(m["id"], -1)):
         s = scores.get(model["id"], -1)
         seed = model.get("swebench_score", 0.0)
-        smoke_str = f"{s:.0%}" if s >= 0 else "skip"
+        smoke_str = f"{s:.0%}" if s >= 0 else "quota"
         print(f"  {model['id']:<53}  {smoke_str:>6}  {seed:.0%}  T{model.get('tier','?')}")
 
     if regressions:
