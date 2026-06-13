@@ -84,6 +84,59 @@ async def chat_completions(req: ChatRequest, request: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+class AnthropicMessage(BaseModel):
+    role: str
+    content: str
+
+class AnthropicRequest(BaseModel):
+    model: str | None = None
+    system: str | None = None
+    messages: list[AnthropicMessage]
+    max_tokens: int = 2048
+    temperature: float = 0.0
+    stream: bool = False
+
+
+@app.post("/messages")
+@app.post("/v1/messages")
+async def anthropic_messages(req: AnthropicRequest):
+    """Anthropic Messages API compatibility layer — used by ingest.py / hermes."""
+    # Translate: prepend system as a system message in OpenAI format
+    oai_messages: list[dict] = []
+    if req.system:
+        oai_messages.append({"role": "system", "content": req.system})
+    oai_messages += [{"role": m.role, "content": m.content} for m in req.messages]
+
+    try:
+        result = await complete(
+            oai_messages,
+            model_hint=req.model,
+            max_tokens=req.max_tokens,
+            temperature=req.temperature,
+            stream=False,
+        )
+    except AllProvidersExhausted as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    # Translate back: OpenAI → Anthropic response format
+    content_text = result["choices"][0]["message"].get("content") or ""
+    usage = result.get("usage", {})
+    return JSONResponse({
+        "id": result.get("id", "msg_pool"),
+        "type": "message",
+        "role": "assistant",
+        "model": result.get("model", "pool"),
+        "content": [{"type": "text", "text": content_text}],
+        "stop_reason": result["choices"][0].get("finish_reason", "end_turn"),
+        "usage": {
+            "input_tokens": usage.get("prompt_tokens", 0),
+            "output_tokens": usage.get("completion_tokens", 0),
+        },
+    })
+
+
 @app.get("/v1/models")
 @app.get("/models")
 async def list_models():
