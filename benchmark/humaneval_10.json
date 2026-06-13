@@ -1,0 +1,111 @@
+[
+  {
+    "id": "HE-0",
+    "prompt": "def has_close_elements(numbers: list[float], threshold: float) -> bool:\n    \"\"\"Check if any two numbers in the list are closer to each other than the given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n",
+    "entry_point": "has_close_elements",
+    "tests": [
+      "assert has_close_elements([1.0, 2.0, 3.0], 0.5) == False",
+      "assert has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3) == True",
+      "assert has_close_elements([1.0, 2.0, 3.9, 4.0, 5.0, 2.2], 0.3) == True",
+      "assert has_close_elements([1.0, 2.0, 3.9, 4.0, 5.0, 2.2], 0.05) == False"
+    ]
+  },
+  {
+    "id": "HE-5",
+    "prompt": "from typing import List\n\ndef intersperse(numbers: List[int], delimeter: int) -> List[int]:\n    \"\"\"Insert a number 'delimeter' between every two consecutive elements of input list 'numbers'.\n    >>> intersperse([], 4)\n    []\n    >>> intersperse([1, 2, 3], 4)\n    [1, 4, 2, 4, 3]\n    \"\"\"\n",
+    "entry_point": "intersperse",
+    "tests": [
+      "assert intersperse([], 4) == []",
+      "assert intersperse([1, 2, 3], 4) == [1, 4, 2, 4, 3]",
+      "assert intersperse([1, 2, 3, 4, 5], 8) == [1, 8, 2, 8, 3, 8, 4, 8, 5]",
+      "assert intersperse([1], 2) == [1]"
+    ]
+  },
+  {
+    "id": "HE-11",
+    "prompt": "from typing import List\n\ndef string_xor(a: str, b: str) -> str:\n    \"\"\"Input are two strings a and b consisting only of 1s and 0s.\n    Perform binary XOR on these inputs and return result also as a string.\n    >>> string_xor('010', '110')\n    '100'\n    \"\"\"\n",
+    "entry_point": "string_xor",
+    "tests": [
+      "assert string_xor('010', '110') == '100'",
+      "assert string_xor('010', '010') == '000'",
+      "assert string_xor('0101', '1010') == '1111'",
+      "assert string_xor('111', '000') == '111'"
+    ]
+  },
+  {
+    "id": "HE-26",
+    "prompt": "from typing import List\n\ndef remove_duplicates(numbers: List[int]) -> List[int]:\n    \"\"\"From a list of integers, remove all elements that occur more than once.\n    Keep order of elements left the same as in the input.\n    >>> remove_duplicates([1, 2, 3, 2, 4])\n    [1, 3, 4]\n    \"\"\"\n",
+    "entry_point": "remove_duplicates",
+    "tests": [
+      "assert remove_duplicates([1, 2, 3, 2, 4]) == [1, 3, 4]",
+      "assert remove_duplicates([1, 2, 3, 4]) == [1, 2, 3, 4]",
+      "assert remove_duplicates([1, 1, 1]) == []",
+      "assert remove_duplicates([]) == []"
+    ]
+  },
+  {
+    "id": "HE-32",
+    "prompt": "import math\n\ndef poly(xs: list, x: float):\n    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])\n\ndef find_zero(xs: list):\n    \"\"\"xs are coefficients of a polynomial. find_zero finds x such that poly(x) = 0.\n    find_zero only receives valid xs, i.e. there will be a zero in the range [-10, 10].\n    >>> round(find_zero([1, 2]), 2)  # f(x) = 1 + 2x, zero at x = -0.5\n    -0.5\n    >>> round(find_zero([-6, 11, -6, 1]), 2)  # f(x) = -6 + 11x - 6x^2 + x^3\n    1.0\n    \"\"\"\n",
+    "entry_point": "find_zero",
+    "tests": [
+      "assert abs(find_zero([1, 2]) - (-0.5)) < 0.01",
+      "assert abs(find_zero([-6, 11, -6, 1]) - 1.0) < 0.01",
+      "assert abs(find_zero([1, 0, -1]) - 1.0) < 0.01"
+    ]
+  },
+  {
+    "id": "HE-40",
+    "prompt": "from typing import List\n\ndef triples_sum_to_zero(l: List[int]) -> bool:\n    \"\"\"triples_sum_to_zero takes a list of integers as an input.\n    It returns True if there are three distinct elements in the list that\n    sum to zero, and False otherwise.\n    >>> triples_sum_to_zero([1, 3, 5, 0])\n    False\n    >>> triples_sum_to_zero([-1, 0, 1, 2, -1, -4])\n    True\n    \"\"\"\n",
+    "entry_point": "triples_sum_to_zero",
+    "tests": [
+      "assert triples_sum_to_zero([1, 3, 5, 0]) == False",
+      "assert triples_sum_to_zero([-1, 0, 1, 2, -1, -4]) == True",
+      "assert triples_sum_to_zero([1, 2, 3]) == False",
+      "assert triples_sum_to_zero([-1, 1, 0]) == True"
+    ]
+  },
+  {
+    "id": "HE-62",
+    "prompt": "from typing import List\n\ndef derivative(xs: List[int]) -> List[int]:\n    \"\"\"xs represent coefficients of a polynomial.\n    xs[0] + xs[1] * x + xs[2] * x^2 + ....\n    Return derivative of this polynomial in the same form.\n    >>> derivative([3, 1, 2, 4, 5])\n    [1, 4, 12, 20]\n    >>> derivative([1, 2, 3])\n    [2, 6]\n    \"\"\"\n",
+    "entry_point": "derivative",
+    "tests": [
+      "assert derivative([3, 1, 2, 4, 5]) == [1, 4, 12, 20]",
+      "assert derivative([1, 2, 3]) == [2, 6]",
+      "assert derivative([5]) == []",
+      "assert derivative([0, 0, 0, 1]) == [0, 0, 3]"
+    ]
+  },
+  {
+    "id": "HE-77",
+    "prompt": "def iscube(a: int) -> bool:\n    \"\"\"Write a function that takes an integer a and returns True\n    if this integer is a cube of some integer number.\n    Note: you may assume the input is always valid.\n    >>> iscube(1)\n    True\n    >>> iscube(2)\n    False\n    >>> iscube(-1)\n    True\n    >>> iscube(64)\n    True\n    \"\"\"\n",
+    "entry_point": "iscube",
+    "tests": [
+      "assert iscube(1) == True",
+      "assert iscube(2) == False",
+      "assert iscube(-1) == True",
+      "assert iscube(64) == True",
+      "assert iscube(0) == True",
+      "assert iscube(180) == False"
+    ]
+  },
+  {
+    "id": "HE-83",
+    "prompt": "def starts_one_ends(n: int) -> int:\n    \"\"\"\n    Given a positive integer n, return the count of the numbers of n-digit\n    positive integers that start or end with 1.\n    >>> starts_one_ends(1)\n    1\n    >>> starts_one_ends(2)\n    18\n    \"\"\"\n",
+    "entry_point": "starts_one_ends",
+    "tests": [
+      "assert starts_one_ends(1) == 1",
+      "assert starts_one_ends(2) == 18",
+      "assert starts_one_ends(3) == 180"
+    ]
+  },
+  {
+    "id": "HE-107",
+    "prompt": "def even_odd_palindrome(n: int) -> tuple:\n    \"\"\"\n    Given a positive integer n, return a tuple (even_palindrome_count, odd_palindrome_count)\n    counting even and odd palindromes in the range 1 to n (inclusive).\n    >>> even_odd_palindrome(3)\n    (1, 2)\n    >>> even_odd_palindrome(12)\n    (4, 6)\n    \"\"\"\n",
+    "entry_point": "even_odd_palindrome",
+    "tests": [
+      "assert even_odd_palindrome(3) == (1, 2)",
+      "assert even_odd_palindrome(12) == (4, 6)",
+      "assert even_odd_palindrome(1) == (0, 1)"
+    ]
+  }
+]
