@@ -52,11 +52,23 @@ def extract_code(text: str, entry_point: str) -> str:
 
 def run_tests(code: str, problem: dict) -> tuple[int, int]:
     """Execute generated code against test assertions. Returns (passed, total)."""
+    import threading
+
     namespace: dict = {}
     passed = 0
-    try:
-        exec(textwrap.dedent(problem["prompt"]) + "\n" + code, namespace)
-    except Exception:
+    result: list = [None]
+
+    def _exec():
+        try:
+            exec(textwrap.dedent(problem["prompt"]) + "\n" + code, namespace)
+            result[0] = "ok"
+        except Exception:
+            result[0] = "err"
+
+    t = threading.Thread(target=_exec, daemon=True)
+    t.start()
+    t.join(timeout=5.0)
+    if result[0] != "ok":
         return 0, len(problem["tests"])
 
     for assertion in problem["tests"]:
@@ -124,9 +136,54 @@ async def score_model(
     return model["id"], score
 
 
+async def score_model_hermes(
+    model: dict,
+    problems: list[dict],
+) -> tuple[str, float]:
+    """Score a model by routing each prompt through the hermes CLI."""
+    hermes_id = model["hermes_model"]
+    total_passed = 0
+    total_tests = 0
+
+    for problem in problems:
+        prompt = f"{SYSTEM_PROMPT}\n\n{problem['prompt']}"
+        try:
+            proc = await asyncio.create_subprocess_exec(
+                "hermes", "chat", "-q", prompt, "-Q", "-m", hermes_id,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+            stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=TIMEOUT)
+            if proc.returncode != 0:
+                total_tests += len(problem["tests"])
+                continue
+            raw = stdout.decode().strip()
+            code = extract_code(raw, problem["entry_point"])
+            p, t = run_tests(code, problem)
+            total_passed += p
+            total_tests += t
+        except (asyncio.TimeoutError, Exception):
+            total_tests += len(problem["tests"])
+
+    score = total_passed / total_tests if total_tests > 0 else 0.0
+    return model["id"], score
+
+
+_hermes_sem = asyncio.Semaphore(3)
+
+
+async def _score_hermes_bounded(model: dict, problems: list[dict]) -> tuple[str, float]:
+    async with _hermes_sem:
+        return await score_model_hermes(model, problems)
+
+
 async def run_smoke(models: list[dict], problems: list[dict]) -> dict[str, float]:
     async with httpx.AsyncClient() as client:
-        tasks = [score_model(client, m, problems) for m in models]
+        tasks = [
+            _score_hermes_bounded(m, problems) if m.get("hermes_model")
+            else score_model(client, m, problems)
+            for m in models
+        ]
         results = await asyncio.gather(*tasks)
     return dict(results)
 
