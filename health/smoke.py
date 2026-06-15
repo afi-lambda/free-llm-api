@@ -197,6 +197,12 @@ def assign_tier(score: float) -> int:
 
 
 def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--unscored", action="store_true", help="Run only models without a smoke_score")
+    args = parser.parse_args()
+
     if not REGISTRY.exists():
         print("ERROR: registry.json not found.", file=sys.stderr)
         sys.exit(1)
@@ -207,14 +213,17 @@ def main() -> None:
     registry = json.loads(REGISTRY.read_text())
     problems = json.loads(BENCHMARK.read_text())
 
-    # Smoke only Tier 1 + 2 alive models (+ one rotating Tier 3 for coverage)
-    candidates = [m for m in registry["models"] if m.get("tier", 3) <= 2 and m.get("alive") is not False]
+    if args.unscored:
+        candidates = [m for m in registry["models"] if m.get("smoke_score") is None and m.get("alive") is not False]
+    else:
+        # Smoke only Tier 1 + 2 alive models (+ one rotating Tier 3 for coverage)
+        candidates = [m for m in registry["models"] if m.get("tier", 3) <= 2 and m.get("alive") is not False]
 
-    # Rotating Tier 3 pick: week number mod count
-    tier3 = [m for m in registry["models"] if m.get("tier", 3) == 3 and m.get("alive") is not False]
-    if tier3:
-        week = datetime.now(timezone.utc).isocalendar()[1]
-        candidates.append(tier3[week % len(tier3)])
+        # Rotating Tier 3 pick: week number mod count
+        tier3 = [m for m in registry["models"] if m.get("tier", 3) == 3 and m.get("alive") is not False]
+        if tier3:
+            week = datetime.now(timezone.utc).isocalendar()[1]
+            candidates.append(tier3[week % len(tier3)])
 
     print(f"Smoke testing {len(candidates)} models against {len(problems)} problems...")
 
