@@ -17,11 +17,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
-from router.client import AllProvidersExhausted, complete
+from router.client import AllProvidersExhausted, _tracker, complete
 from router.pool import candidates, summary
-from router.rate_tracker import RateTracker
-
-_tracker = RateTracker()
 
 
 @asynccontextmanager
