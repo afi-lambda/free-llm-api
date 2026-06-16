@@ -85,8 +85,9 @@ async def complete(
             if stream:
                 return _stream(model, api_key, payload)
             else:
-                resp = await _post(model, api_key, payload)
+                resp, headers = await _post(model, api_key, payload)
                 _tracker.record_success(model)
+                _tracker.update_from_headers(model, headers)
                 return resp
         except RateLimited as e:
             retry_after = e.retry_after
@@ -100,7 +101,7 @@ async def complete(
     raise AllProvidersExhausted("\n".join(errors))
 
 
-async def _post(model: dict, api_key: str, payload: dict) -> dict:
+async def _post(model: dict, api_key: str, payload: dict) -> tuple[dict, httpx.Headers]:
     async with httpx.AsyncClient() as client:
         resp = await client.post(
             f"{model['base_url']}/chat/completions",
@@ -113,7 +114,7 @@ async def _post(model: dict, api_key: str, payload: dict) -> dict:
         raise RateLimited(retry_after)
     if resp.status_code != 200:
         raise ProviderError(f"HTTP {resp.status_code}: {resp.text[:200]}")
-    return resp.json()
+    return resp.json(), resp.headers
 
 
 async def _stream(model: dict, api_key: str, payload: dict) -> AsyncIterator[bytes]:
@@ -135,6 +136,7 @@ async def _stream(model: dict, api_key: str, payload: dict) -> AsyncIterator[byt
             body = await resp.aread()
             raise ProviderError(f"HTTP {resp.status_code}: {body[:200]}")
         _tracker.record_success(model)
+        _tracker.update_from_headers(model, resp.headers)
         async for chunk in resp.aiter_bytes():
             yield chunk
     await client.aclose()

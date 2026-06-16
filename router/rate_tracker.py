@@ -4,10 +4,25 @@ Persists to disk so restarts don't lose window state.
 """
 
 import json
+import re
 import time
 from datetime import date, datetime, timezone
 from pathlib import Path
 from threading import Lock
+
+
+def _parse_reset_seconds(value: str) -> int:
+    """Parse Groq-style reset strings ('6s', '1m30s', '459ms') to whole seconds."""
+    total = 0
+    for m in re.finditer(r"(\d+)(ms|m|s)", value):
+        n, unit = int(m.group(1)), m.group(2)
+        if unit == "ms":
+            total += max(1, n // 1000)
+        elif unit == "s":
+            total += n
+        elif unit == "m":
+            total += n * 60
+    return max(1, total)
 
 STATE_FILE = Path(__file__).parent.parent / ".rate_state.json"
 _lock = Lock()
@@ -73,6 +88,21 @@ class RateTracker:
             state = self._sync()
             state["limited_until"][model["id"]] = time.time() + retry_after_seconds
             _save(state)
+
+    def update_from_headers(self, model: dict, headers) -> None:
+        """Proactively hold a model when provider headers show remaining requests hit 0."""
+        # Groq: x-ratelimit-remaining-requests + x-ratelimit-reset-requests
+        remaining = headers.get("x-ratelimit-remaining-requests")
+        if remaining is not None and remaining.isdigit() and int(remaining) == 0:
+            reset_str = headers.get("x-ratelimit-reset-requests", "60s")
+            self.mark_rate_limited(model, _parse_reset_seconds(reset_str))
+            return
+
+        # Cerebras: per-minute granularity
+        remaining_min = headers.get("x-ratelimit-remaining-requests-minute")
+        if remaining_min is not None and remaining_min.isdigit() and int(remaining_min) == 0:
+            self.mark_rate_limited(model, 60)
+            return
 
     def clear_hold(self, model_id: str) -> None:
         with _lock:
