@@ -169,9 +169,39 @@ GROQ_NAME_MAP: dict[str, str] = {
 }
 
 CEREBRAS_NAME_MAP: dict[str, str] = {
-    "Llama 3.1 8B": "llama3.1-8b",
     "gpt-oss-120b": "gpt-oss-120b",
 }
+
+# Cerebras has discontinued llama3.1-8b (404 on /v1/chat/completions, no
+# longer listed in /v1/models) but cheahjs's README hasn't been updated to
+# drop it, so it's intentionally left out of CEREBRAS_NAME_MAP above.
+
+# zai-glm-4.7 is live on Cerebras's /v1/models but not yet listed in
+# cheahjs's README table, so it's curated here. Limits reused from
+# gpt-oss-120b's row in that table — Cerebras applies uniform free-tier
+# limits across all their models.
+CEREBRAS_EXTRA_MODELS: dict[str, dict] = {
+    "zai-glm-4.7": {"req_per_day": 14400, "req_per_min": 30, "tokens_per_min": 60000},
+}
+
+
+def fetch_cerebras_extra_models() -> list[dict]:
+    if not os.environ.get("CEREBRAS_API_KEY"):
+        print("  CEREBRAS_API_KEY not set — skipping curated Cerebras extras", file=sys.stderr)
+        return []
+    return [
+        {
+            "id": f"cerebras/{model_param}",
+            "display_name": model_param,
+            "provider": "cerebras",
+            "openai_compat": True,
+            "base_url": "https://api.cerebras.ai/v1",
+            "model_param": model_param,
+            "limits": limits,
+            "env_key": "CEREBRAS_API_KEY",
+        }
+        for model_param, limits in CEREBRAS_EXTRA_MODELS.items()
+    ]
 
 # Ollama Cloud — no cheahjs section and no public discovery API for free
 # cloud-tagged models, so this list is manually curated from
@@ -270,6 +300,9 @@ def parse_models(readme: str) -> list[dict]:
             "https://api.cerebras.ai/v1",
             "CEREBRAS_API_KEY", CEREBRAS_NAME_MAP,
         )
+
+    print("  Adding curated Cerebras extras...")
+    models += fetch_cerebras_extra_models()
 
     print("  Adding curated Ollama Cloud model list...")
     models += fetch_ollama_cloud_models()
