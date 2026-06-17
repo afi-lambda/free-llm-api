@@ -6,7 +6,9 @@ Self-maintaining pool of free LLM APIs, ranked by coding quality, with automatic
 
 ```
 discovery/          Model discovery & tier assignment
-  cheahjs_sync.py     Daily: pull free model list from cheahjs/free-llm-api-resources
+  cheahjs_sync.py     Daily: pull free model list from cheahjs/free-llm-api-resources,
+                      plus curated entries for providers/models not yet listed there
+                      (Ollama Cloud, Cerebras zai-glm-4.7)
   swebench.py         Weekly: refresh SWE-bench Lite scores for tier assignment
 
 health/             Liveness & quality checks
@@ -54,6 +56,7 @@ export GEMINI_API_KEY=...        # aistudio.google.com
 export OPENROUTER_API_KEY=...    # openrouter.ai/keys
 export GROQ_API_KEY=...          # console.groq.com
 export CEREBRAS_API_KEY=...      # inference.cerebras.ai
+export OLLAMA_API_KEY=...        # ollama.com/settings/keys
 ```
 
 ## Running the server
