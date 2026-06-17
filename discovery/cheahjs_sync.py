@@ -40,6 +40,9 @@ SWEBENCH_SCORES: dict[str, float] = {
     "llama-3.3-70b-versatile": 0.27,
     "qwen/qwen3-32b": 0.35,
     "llama-3.1-8b-instant": 0.15,
+    # Ollama Cloud (by model_param) — reuse scores from equivalent models above
+    "gpt-oss:120b": 0.38,
+    "qwen3-coder:480b": 0.48,
 }
 
 
@@ -170,6 +173,36 @@ CEREBRAS_NAME_MAP: dict[str, str] = {
     "gpt-oss-120b": "gpt-oss-120b",
 }
 
+# Ollama Cloud — no cheahjs section and no public discovery API for free
+# cloud-tagged models, so this list is manually curated from
+# https://ollama.com/search?c=cloud. Free tier is GPU-time-based
+# (session resets every 5h, weekly reset every 7 days), not request-count
+# based, so no req_per_day/req_per_min limits are set here.
+OLLAMA_CLOUD_MODELS: list[str] = [
+    "gpt-oss:120b",
+    "qwen3-coder:480b",
+    "gemma4:31b",
+]
+
+
+def fetch_ollama_cloud_models() -> list[dict]:
+    if not os.environ.get("OLLAMA_API_KEY"):
+        print("  OLLAMA_API_KEY not set — skipping Ollama Cloud", file=sys.stderr)
+        return []
+    return [
+        {
+            "id": f"ollama/{model_param}",
+            "display_name": model_param,
+            "provider": "ollama",
+            "openai_compat": True,
+            "base_url": "https://ollama.com/v1",
+            "model_param": model_param,
+            "limits": {},
+            "env_key": "OLLAMA_API_KEY",
+        }
+        for model_param in OLLAMA_CLOUD_MODELS
+    ]
+
 
 def parse_html_table_provider(
     section: str,
@@ -237,6 +270,9 @@ def parse_models(readme: str) -> list[dict]:
             "https://api.cerebras.ai/v1",
             "CEREBRAS_API_KEY", CEREBRAS_NAME_MAP,
         )
+
+    print("  Adding curated Ollama Cloud model list...")
+    models += fetch_ollama_cloud_models()
 
     # Annotate with tier and SWE-bench score
     for m in models:
