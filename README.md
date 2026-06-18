@@ -14,6 +14,8 @@ discovery/          Model discovery & tier assignment
 health/             Liveness & quality checks
   liveness.py         Daily: async HTTP probe every model (5 s timeout)
   smoke.py            Weekly: run 10 HumanEval problems against Tier 1+2 models
+  smoke_load_test.py  Manual: ramp Hermes-backed smoke concurrency 1→2→4→6→8→10,
+                      sampling RAM/swap/load while it runs (capacity check, not CI)
 
 router/             OpenAI-compatible proxy server
   pool.py             Ordered candidate list from registry.json
@@ -102,6 +104,14 @@ python3 health/smoke.py --unscored
 ```
 
 On 429 responses the script logs the full error body to stderr and records `quota_retry_after_seconds` / `quota_reset_at` in `registry.json`. The report shows `quota/Ns` when a retry window is known.
+
+### Load test
+
+```bash
+python3 health/smoke_load_test.py
+```
+
+Ramps concurrency through Hermes-backed Tier 1/2 models (1→2→4→6→8→10) running 3 HumanEval problems each, while logging memory/swap/load-average/process-count every second to `/tmp/smoke_loadtest.log`. Run manually to check headroom before raising smoke-test concurrency on resource-constrained hosts; safe to Ctrl-C.
 
 ## Rate limit tracking
 
