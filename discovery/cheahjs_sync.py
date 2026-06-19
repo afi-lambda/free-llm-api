@@ -93,8 +93,25 @@ def parse_limits(text: str) -> dict:
     return limits
 
 
-# OpenRouter shared free-tier limits (from their docs)
-OPENROUTER_FREE_LIMITS = {"req_per_day": 50, "req_per_min": 20}
+def fetch_openrouter_limits(api_key: str) -> dict:
+    """Free model variants (IDs ending in :free) get 1000 req/day once the
+    account has purchased >=10 credits (is_free_tier == False), else 50.
+    req/min is a flat 20 regardless of tier. The `rate_limit` field on this
+    endpoint is marked deprecated by OpenRouter, so it's ignored here.
+    https://openrouter.ai/docs/api/reference/limits
+    """
+    try:
+        resp = httpx.get(
+            "https://openrouter.ai/api/v1/key",
+            headers={"Authorization": f"Bearer {api_key}"},
+            timeout=15,
+        )
+        resp.raise_for_status()
+        is_free_tier = resp.json()["data"]["is_free_tier"]
+    except httpx.HTTPError as e:
+        print(f"  Failed to fetch OpenRouter key status ({e}); assuming free-tier limits", file=sys.stderr)
+        is_free_tier = True
+    return {"req_per_day": 50 if is_free_tier else 1000, "req_per_min": 20}
 
 # Non-chat model substrings to skip across all providers
 SKIP_MODEL_KEYWORDS = {
@@ -109,6 +126,7 @@ def fetch_openrouter_free_models() -> list[dict]:
     if not api_key:
         print("  OPENROUTER_API_KEY not set — skipping OpenRouter", file=sys.stderr)
         return []
+    limits = fetch_openrouter_limits(api_key)
     resp = httpx.get(
         "https://openrouter.ai/api/v1/models",
         headers={"Authorization": f"Bearer {api_key}"},
@@ -136,7 +154,7 @@ def fetch_openrouter_free_models() -> list[dict]:
             "openai_compat": True,
             "base_url": "https://openrouter.ai/api/v1",
             "model_param": slug,
-            "limits": OPENROUTER_FREE_LIMITS,
+            "limits": limits,
             "env_key": "OPENROUTER_API_KEY",
             "context_length": m.get("context_length"),
         })
