@@ -108,7 +108,7 @@ def fetch_openrouter_limits(api_key: str) -> dict:
         )
         resp.raise_for_status()
         is_free_tier = resp.json()["data"]["is_free_tier"]
-    except httpx.HTTPError as e:
+    except (httpx.HTTPError, KeyError, ValueError) as e:
         print(f"  Failed to fetch OpenRouter key status ({e}); assuming free-tier limits", file=sys.stderr)
         is_free_tier = True
     return {"req_per_day": 50 if is_free_tier else 1000, "req_per_min": 20}
