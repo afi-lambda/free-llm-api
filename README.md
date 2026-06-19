@@ -8,8 +8,11 @@ Self-maintaining pool of free LLM APIs, ranked by coding quality, with automatic
 discovery/          Model discovery & tier assignment
   cheahjs_sync.py     Daily: pull free model list from cheahjs/free-llm-api-resources,
                       plus curated entries for providers/models not yet listed there
-                      (Ollama Cloud, Cerebras zai-glm-4.7)
-  swebench.py         Weekly: refresh SWE-bench Lite scores for tier assignment
+                      (Ollama Cloud, Cerebras zai-glm-4.7). OpenRouter's :free
+                      req_per_day is resolved live from the key's funding status
+                      (50/day on free tier, 1000/day once >=10 credits purchased)
+                      rather than hardcoded.
+  swebench.py         Weekly: refresh SWE-bench Verified scores for tier assignment
 
 health/             Liveness & quality checks
   liveness.py         Daily: async HTTP probe every model (5 s timeout)
@@ -33,7 +36,7 @@ cron/               Scheduling scripts
 
 ## Tier system
 
-Models are ranked by SWE-bench Lite score and validated weekly by the HumanEval smoke test:
+Models are ranked by SWE-bench Verified score and validated weekly by the HumanEval smoke test:
 
 | Tier | Smoke score | Role |
 |------|-------------|------|
@@ -88,8 +91,9 @@ OPENAI_API_KEY=free-pool         # ignored — real keys injected by router
 |--------|------|-------------|
 | POST | `/chat/completions`, `/v1/chat/completions` | OpenAI Chat API |
 | POST | `/messages`, `/v1/messages` | Anthropic Messages API |
-| GET  | `/v1/models` | List pool models |
+| GET  | `/v1/models`, `/models` | List pool models |
 | GET  | `/health` | Pool status + rate tracker state |
+| GET  | `/` | Service info + pool summary |
 
 ### Example
 
