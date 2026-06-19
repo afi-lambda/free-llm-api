@@ -1,0 +1,221 @@
+[
+  {
+    "id": "HE-0",
+    "prompt": "def has_close_elements(numbers: list[float], threshold: float) -> bool:\n    \"\"\"Check if any two numbers in the list are closer to each other than the given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n",
+    "entry_point": "has_close_elements",
+    "tests": [
+      "assert has_close_elements([1.0, 2.0, 3.0], 0.5) == False",
+      "assert has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3) == True",
+      "assert has_close_elements([1.0, 2.0, 3.9, 4.0, 5.0, 2.2], 0.3) == True",
+      "assert has_close_elements([1.0, 2.0, 3.9, 4.0, 5.0, 2.2], 0.05) == False"
+    ]
+  },
+  {
+    "id": "HE-1",
+    "prompt": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n",
+    "entry_point": "separate_paren_groups",
+    "tests": [
+      "assert separate_paren_groups('(()()) ((())) () ((())()())') == ['(()())', '((()))', '()', '((())()())']",
+      "assert separate_paren_groups('() (()) ((())) (((())))') == ['()', '(())', '((()))', '(((())))']",
+      "assert separate_paren_groups('(()(())((())))') == ['(()(())((())))']",
+      "assert separate_paren_groups('( ) (( )) (( )( ))') == ['()', '(())', '(()())']"
+    ]
+  },
+  {
+    "id": "HE-2",
+    "prompt": "\n\ndef truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n",
+    "entry_point": "truncate_number",
+    "tests": [
+      "assert truncate_number(3.5) == 0.5",
+      "assert abs(truncate_number(1.33) - 0.33) < 1e-06",
+      "assert abs(truncate_number(123.456) - 0.456) < 1e-06"
+    ]
+  },
+  {
+    "id": "HE-3",
+    "prompt": "from typing import List\n\n\ndef below_zero(operations: List[int]) -> bool:\n    \"\"\" You're given a list of deposit and withdrawal operations on a bank account that starts with\n    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and\n    at that point function should return True. Otherwise it should return False.\n    >>> below_zero([1, 2, 3])\n    False\n    >>> below_zero([1, 2, -4, 5])\n    True\n    \"\"\"\n",
+    "entry_point": "below_zero",
+    "tests": [
+      "assert below_zero([]) == False",
+      "assert below_zero([1, 2, -3, 1, 2, -3]) == False",
+      "assert below_zero([1, 2, -4, 5, 6]) == True",
+      "assert below_zero([1, -1, 2, -2, 5, -5, 4, -4]) == False",
+      "assert below_zero([1, -1, 2, -2, 5, -5, 4, -5]) == True",
+      "assert below_zero([1, -2, 2, -2, 5, -5, 4, -4]) == True"
+    ]
+  },
+  {
+    "id": "HE-4",
+    "prompt": "from typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each\n    element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\"\n",
+    "entry_point": "mean_absolute_deviation",
+    "tests": [
+      "assert abs(mean_absolute_deviation([1.0, 2.0, 3.0]) - 2.0 / 3.0) < 1e-06",
+      "assert abs(mean_absolute_deviation([1.0, 2.0, 3.0, 4.0]) - 1.0) < 1e-06",
+      "assert abs(mean_absolute_deviation([1.0, 2.0, 3.0, 4.0, 5.0]) - 6.0 / 5.0) < 1e-06"
+    ]
+  },
+  {
+    "id": "HE-5",
+    "prompt": "from typing import List\n\ndef intersperse(numbers: List[int], delimeter: int) -> List[int]:\n    \"\"\"Insert a number 'delimeter' between every two consecutive elements of input list 'numbers'.\n    >>> intersperse([], 4)\n    []\n    >>> intersperse([1, 2, 3], 4)\n    [1, 4, 2, 4, 3]\n    \"\"\"\n",
+    "entry_point": "intersperse",
+    "tests": [
+      "assert intersperse([], 4) == []",
+      "assert intersperse([1, 2, 3], 4) == [1, 4, 2, 4, 3]",
+      "assert intersperse([1, 2, 3, 4, 5], 8) == [1, 8, 2, 8, 3, 8, 4, 8, 5]",
+      "assert intersperse([1], 2) == [1]"
+    ]
+  },
+  {
+    "id": "HE-6",
+    "prompt": "from typing import List\n\n\ndef parse_nested_parens(paren_string: str) -> List[int]:\n    \"\"\" Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n    For each of the group, output the deepest level of nesting of parentheses.\n    E.g. (()()) has maximum two levels of nesting while ((())) has three.\n\n    >>> parse_nested_parens('(()()) ((())) () ((())()())')\n    [2, 3, 1, 3]\n    \"\"\"\n",
+    "entry_point": "parse_nested_parens",
+    "tests": [
+      "assert parse_nested_parens('(()()) ((())) () ((())()())') == [2, 3, 1, 3]",
+      "assert parse_nested_parens('() (()) ((())) (((())))') == [1, 2, 3, 4]",
+      "assert parse_nested_parens('(()(())((())))') == [4]"
+    ]
+  },
+  {
+    "id": "HE-7",
+    "prompt": "from typing import List\n\n\ndef filter_by_substring(strings: List[str], substring: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that contain given substring\n    >>> filter_by_substring([], 'a')\n    []\n    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')\n    ['abc', 'bacd', 'array']\n    \"\"\"\n",
+    "entry_point": "filter_by_substring",
+    "tests": [
+      "assert filter_by_substring([], 'john') == []",
+      "assert filter_by_substring(['xxx', 'asd', 'xxy', 'john doe', 'xxxAAA', 'xxx'], 'xxx') == ['xxx', 'xxxAAA', 'xxx']",
+      "assert filter_by_substring(['xxx', 'asd', 'aaaxxy', 'john doe', 'xxxAAA', 'xxx'], 'xx') == ['xxx', 'aaaxxy', 'xxxAAA', 'xxx']",
+      "assert filter_by_substring(['grunt', 'trumpet', 'prune', 'gruesome'], 'run') == ['grunt', 'prune']"
+    ]
+  },
+  {
+    "id": "HE-8",
+    "prompt": "from typing import List, Tuple\n\n\ndef sum_product(numbers: List[int]) -> Tuple[int, int]:\n    \"\"\" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n    Empty sum should be equal to 0 and empty product should be equal to 1.\n    >>> sum_product([])\n    (0, 1)\n    >>> sum_product([1, 2, 3, 4])\n    (10, 24)\n    \"\"\"\n",
+    "entry_point": "sum_product",
+    "tests": [
+      "assert sum_product([]) == (0, 1)",
+      "assert sum_product([1, 1, 1]) == (3, 1)",
+      "assert sum_product([100, 0]) == (100, 0)",
+      "assert sum_product([3, 5, 7]) == (3 + 5 + 7, 3 * 5 * 7)",
+      "assert sum_product([10]) == (10, 10)"
+    ]
+  },
+  {
+    "id": "HE-9",
+    "prompt": "from typing import List, Tuple\n\n\ndef rolling_max(numbers: List[int]) -> List[int]:\n    \"\"\" From a given list of integers, generate a list of rolling maximum element found until given moment\n    in the sequence.\n    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])\n    [1, 2, 3, 3, 3, 4, 4]\n    \"\"\"\n",
+    "entry_point": "rolling_max",
+    "tests": [
+      "assert rolling_max([]) == []",
+      "assert rolling_max([1, 2, 3, 4]) == [1, 2, 3, 4]",
+      "assert rolling_max([4, 3, 2, 1]) == [4, 4, 4, 4]",
+      "assert rolling_max([3, 2, 3, 100, 3]) == [3, 3, 3, 100, 100]"
+    ]
+  },
+  {
+    "id": "HE-10",
+    "prompt": "\n\ndef is_palindrome(string: str) -> bool:\n    \"\"\" Test if given string is a palindrome \"\"\"\n    return string == string[::-1]\n\n\ndef make_palindrome(string: str) -> str:\n    \"\"\" Find the shortest palindrome that begins with a supplied string.\n    Algorithm idea is simple:\n    - Find the longest postfix of supplied string that is a palindrome.\n    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n    >>> make_palindrome('')\n    ''\n    >>> make_palindrome('cat')\n    'catac'\n    >>> make_palindrome('cata')\n    'catac'\n    \"\"\"\n",
+    "entry_point": "make_palindrome",
+    "tests": [
+      "assert make_palindrome('') == ''",
+      "assert make_palindrome('x') == 'x'",
+      "assert make_palindrome('xyz') == 'xyzyx'",
+      "assert make_palindrome('xyx') == 'xyx'",
+      "assert make_palindrome('jerry') == 'jerryrrej'"
+    ]
+  },
+  {
+    "id": "HE-11",
+    "prompt": "from typing import List\n\ndef string_xor(a: str, b: str) -> str:\n    \"\"\"Input are two strings a and b consisting only of 1s and 0s.\n    Perform binary XOR on these inputs and return result also as a string.\n    >>> string_xor('010', '110')\n    '100'\n    \"\"\"\n",
+    "entry_point": "string_xor",
+    "tests": [
+      "assert string_xor('010', '110') == '100'",
+      "assert string_xor('010', '010') == '000'",
+      "assert string_xor('0101', '1010') == '1111'",
+      "assert string_xor('111', '000') == '111'"
+    ]
+  },
+  {
+    "id": "HE-12",
+    "prompt": "from typing import List, Optional\n\n\ndef longest(strings: List[str]) -> Optional[str]:\n    \"\"\" Out of list of strings, return the longest one. Return the first one in case of multiple\n    strings of the same length. Return None in case the input list is empty.\n    >>> longest([])\n\n    >>> longest(['a', 'b', 'c'])\n    'a'\n    >>> longest(['a', 'bb', 'ccc'])\n    'ccc'\n    \"\"\"\n",
+    "entry_point": "longest",
+    "tests": [
+      "assert longest([]) == None",
+      "assert longest(['x', 'y', 'z']) == 'x'",
+      "assert longest(['x', 'yyy', 'zzzz', 'www', 'kkkk', 'abc']) == 'zzzz'"
+    ]
+  },
+  {
+    "id": "HE-26",
+    "prompt": "from typing import List\n\ndef remove_duplicates(numbers: List[int]) -> List[int]:\n    \"\"\"From a list of integers, remove all elements that occur more than once.\n    Keep order of elements left the same as in the input.\n    >>> remove_duplicates([1, 2, 3, 2, 4])\n    [1, 3, 4]\n    \"\"\"\n",
+    "entry_point": "remove_duplicates",
+    "tests": [
+      "assert remove_duplicates([1, 2, 3, 2, 4]) == [1, 3, 4]",
+      "assert remove_duplicates([1, 2, 3, 4]) == [1, 2, 3, 4]",
+      "assert remove_duplicates([1, 1, 1]) == []",
+      "assert remove_duplicates([]) == []"
+    ]
+  },
+  {
+    "id": "HE-32",
+    "prompt": "import math\n\ndef poly(xs: list, x: float):\n    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])\n\ndef find_zero(xs: list):\n    \"\"\"xs are coefficients of a polynomial. find_zero finds x such that poly(x) = 0.\n    find_zero only receives valid xs, i.e. there will be a zero in the range [-10, 10].\n    >>> round(find_zero([1, 2]), 2)  # f(x) = 1 + 2x, zero at x = -0.5\n    -0.5\n    >>> round(find_zero([-6, 11, -6, 1]), 2)  # f(x) = -6 + 11x - 6x^2 + x^3\n    1.0\n    \"\"\"\n",
+    "entry_point": "find_zero",
+    "tests": [
+      "assert abs(find_zero([1, 2]) - (-0.5)) < 0.01",
+      "assert abs(find_zero([-6, 11, -6, 1]) - 1.0) < 0.01",
+      "assert abs(find_zero([1, 0, -1]) - 1.0) < 0.01"
+    ]
+  },
+  {
+    "id": "HE-40",
+    "prompt": "from typing import List\n\ndef triples_sum_to_zero(l: List[int]) -> bool:\n    \"\"\"triples_sum_to_zero takes a list of integers as an input.\n    It returns True if there are three distinct elements in the list that\n    sum to zero, and False otherwise.\n    >>> triples_sum_to_zero([1, 3, 5, 0])\n    False\n    >>> triples_sum_to_zero([-1, 0, 1, 2, -1, -4])\n    True\n    \"\"\"\n",
+    "entry_point": "triples_sum_to_zero",
+    "tests": [
+      "assert triples_sum_to_zero([1, 3, 5, 0]) == False",
+      "assert triples_sum_to_zero([-1, 0, 1, 2, -1, -4]) == True",
+      "assert triples_sum_to_zero([1, 2, 3]) == False",
+      "assert triples_sum_to_zero([-1, 1, 0]) == True"
+    ]
+  },
+  {
+    "id": "HE-62",
+    "prompt": "from typing import List\n\ndef derivative(xs: List[int]) -> List[int]:\n    \"\"\"xs represent coefficients of a polynomial.\n    xs[0] + xs[1] * x + xs[2] * x^2 + ....\n    Return derivative of this polynomial in the same form.\n    >>> derivative([3, 1, 2, 4, 5])\n    [1, 4, 12, 20]\n    >>> derivative([1, 2, 3])\n    [2, 6]\n    \"\"\"\n",
+    "entry_point": "derivative",
+    "tests": [
+      "assert derivative([3, 1, 2, 4, 5]) == [1, 4, 12, 20]",
+      "assert derivative([1, 2, 3]) == [2, 6]",
+      "assert derivative([5]) == []",
+      "assert derivative([0, 0, 0, 1]) == [0, 0, 3]"
+    ]
+  },
+  {
+    "id": "HE-77",
+    "prompt": "def iscube(a: int) -> bool:\n    \"\"\"Write a function that takes an integer a and returns True\n    if this integer is a cube of some integer number.\n    Note: you may assume the input is always valid.\n    >>> iscube(1)\n    True\n    >>> iscube(2)\n    False\n    >>> iscube(-1)\n    True\n    >>> iscube(64)\n    True\n    \"\"\"\n",
+    "entry_point": "iscube",
+    "tests": [
+      "assert iscube(1) == True",
+      "assert iscube(2) == False",
+      "assert iscube(-1) == True",
+      "assert iscube(64) == True",
+      "assert iscube(0) == True",
+      "assert iscube(180) == False"
+    ]
+  },
+  {
+    "id": "HE-83",
+    "prompt": "def starts_one_ends(n: int) -> int:\n    \"\"\"\n    Given a positive integer n, return the count of the numbers of n-digit\n    positive integers that start or end with 1.\n    >>> starts_one_ends(1)\n    1\n    >>> starts_one_ends(2)\n    18\n    \"\"\"\n",
+    "entry_point": "starts_one_ends",
+    "tests": [
+      "assert starts_one_ends(1) == 1",
+      "assert starts_one_ends(2) == 18",
+      "assert starts_one_ends(3) == 180"
+    ]
+  },
+  {
+    "id": "HE-107",
+    "prompt": "def even_odd_palindrome(n: int) -> tuple:\n    \"\"\"\n    Given a positive integer n, return a tuple (even_palindrome_count, odd_palindrome_count)\n    counting even and odd palindromes in the range 1 to n (inclusive).\n    >>> even_odd_palindrome(3)\n    (1, 2)\n    >>> even_odd_palindrome(12)\n    (4, 6)\n    \"\"\"\n",
+    "entry_point": "even_odd_palindrome",
+    "tests": [
+      "assert even_odd_palindrome(3) == (1, 2)",
+      "assert even_odd_palindrome(12) == (4, 6)",
+      "assert even_odd_palindrome(1) == (0, 1)"
+    ]
+  }
+]
