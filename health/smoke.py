@@ -43,9 +43,17 @@ def get_api_key(env_key: str) -> str | None:
 
 def extract_code(text: str, entry_point: str) -> str:
     """Strip markdown fences and extract the function body."""
-    text = re.sub(r"```(?:python)?\n?", "", text).replace("```", "").strip()
-    # Keep only lines starting from the function definition
+    text = re.sub(r"```(?:python)?\n?", "", text).replace("```", "")
+    # Drop fully-blank leading/trailing lines without touching real
+    # indentation — a plain .strip() eats the leading indent of a
+    # body-only completion (no repeated `def` line), breaking it when
+    # re-attached under the original prompt's signature.
     lines = text.splitlines()
+    while lines and not lines[0].strip():
+        lines.pop(0)
+    while lines and not lines[-1].strip():
+        lines.pop()
+    # Keep only lines starting from the function definition
     start = next((i for i, l in enumerate(lines) if l.startswith("def ")), 0)
     return "\n".join(lines[start:])
 
