@@ -43,6 +43,13 @@ Models are ranked by SWE-bench Lite score and validated weekly by the HumanEval 
 
 Smoke scores override tier on regression (score drops > 15 pp or tier demotes).
 
+Tier reflects code-quality ranking only, not quota headroom. Google AI Studio's
+`gemini-2.5-flash`, `gemini-3.5-flash`, and `gemini-2.5-flash-lite` are capped at
+**20 requests/day** regardless of tier — a handful of router fallbacks or one
+smoke-test run exhausts the day's quota. Treat them as best-effort bonus
+candidates, not dependable pool members; everything else in the registry sits
+at 250+ RPD (most OpenRouter/Groq models resolve to 1000+, Cerebras to 14400).
+
 ## Setup
 
 ```bash
