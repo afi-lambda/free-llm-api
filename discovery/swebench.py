@@ -27,10 +27,10 @@ KNOWN_SCORES: dict[str, float] = {
     "qwen/qwen3-coder": 0.48,
     "deepseek/deepseek-v4-flash": 0.42,
     "moonshotai/kimi-k2.6": 0.40,
-    "openai/gpt-oss-120b": 0.55,   # smoke observed 95% on HumanEval-10
-    "openai/gpt-oss-20b": 0.48,    # smoke observed 92%
+    "openai/gpt-oss-120b": 0.55,
+    "openai/gpt-oss-20b": 0.48,
     "qwen/qwen3-next-80b-a3b-instruct": 0.35,
-    "minimax/minimax-m2.5": 0.32,
+    "minimax/minimax-m2.5": 0.758,
     "meta-llama/llama-3.3-70b-instruct": 0.27,
     "nousresearch/hermes-3-llama-3.1-405b": 0.22,
     "meta-llama/llama-3.2-3b-instruct": 0.10,
@@ -42,10 +42,15 @@ KNOWN_SCORES: dict[str, float] = {
     # Cerebras
     "llama3.1-8b": 0.15,
     "gpt-oss-120b": 0.38,
+    # Ollama Cloud (same model families as above, pinned separately for tiering)
+    "minimax-m2.5": 0.758,
+    "gpt-oss:20b": 0.48,
+    "gpt-oss:120b": 0.55,
+    "qwen3-coder:480b": 0.48,
 }
 
 # Last updated date — bump this when you refresh the scores above
-SCORES_DATE = "2026-06-13"
+SCORES_DATE = "2026-06-28"
 
 
 def assign_tier(score: float) -> int:
