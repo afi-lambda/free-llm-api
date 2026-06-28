@@ -36,7 +36,7 @@ router/             # Phase 3 — request routing
 
 cron/               # Phase 4 — scheduling
   daily.sh          #   runs at 05:45 — cheahjs sync + liveness probe
-  weekly.sh         #   runs Monday 05:45 — smoke test + SWE-bench refresh
+  weekly.sh         #   runs Monday 05:48 — SWE-bench refresh + smoke test
 ```
 
 ---
@@ -49,9 +49,16 @@ cron/               # Phase 4 — scheduling
 # discovery/cheahjs_sync.py
 # Fetch https://raw.githubusercontent.com/cheahjs/free-llm-api-resources/main/README.md
 # Parse provider blocks → extract model IDs, rate limits
+# Add curated providers/models not discoverable from cheahjs alone
+# (currently Cerebras zai-glm-4.7 and a manually maintained Ollama Cloud coding shortlist)
 # Diff against registry.json → log additions / removals
 # Write updated registry.json
 ```
+
+Notes:
+- OpenRouter free models are pulled from OpenRouter's live `/api/v1/models`, not the cheahjs README.
+- Ollama Cloud `/v1/models` lists the catalog but does not reveal which models are usable on the current account plan.
+  Keep an explicit shortlist in `discovery/cheahjs_sync.py`, then rely on `health/liveness.py` to prove accessibility.
 
 Key providers to track (from cheahjs README as of 2026-06-13):
 | Provider | Free models | Key limits |
@@ -66,13 +73,12 @@ Key providers to track (from cheahjs README as of 2026-06-13):
 
 ### 1.2 Tier assignment
 
-Tiers based on SWE-bench score + availability:
+Tiers based on SWE-bench Verified score:
 
 ```
-Tier 1 (>50% SWE-bench):  Gemini 2.5 Flash (Google AI Studio)
-Tier 2 (30–50%):          DeepSeek V4 Flash (OpenRouter), Qwen3-Coder (OpenRouter),
-                           Codestral (Mistral), Llama 3.3 70B (Groq/Cerebras)
-Tier 3 (<30%, fallback):  Everything else in the free pool
+Tier 1 (>=45% SWE-bench):  Primary pool
+Tier 2 (25–44%):           Secondary fallback
+Tier 3 (<25%):             Last resort / rotating smoke candidate
 ```
 
 registry.json schema:
@@ -103,7 +109,7 @@ registry.json schema:
 - Record: HTTP status, latency_ms, non-empty response
 - Mark dead if 3 consecutive failures
 
-### 2.2 Smoke test (weekly, Monday 05:45)
+### 2.2 Smoke test (weekly, Monday 05:48)
 
 10 fixed coding problems from HumanEval (problems 0, 1, 5, 11, 17, 26, 32, 40, 62, 77).
 Score = correct/10. Update tier if score drops >2 points from baseline.
@@ -170,18 +176,17 @@ python3 -m notify "Pool ready: $(python3 router/pool.py --count) models availabl
 ```
 
 ```bash
-# cron/weekly.sh — runs Monday 05:45
+# cron/weekly.sh — runs Monday 05:48
 cd /home/alain/free-llm-api
 source venv/bin/activate
 python3 discovery/swebench.py       # refresh SWE-bench scores
 python3 health/smoke.py             # re-score all Tier 1+2 models
-python3 discovery/cheahjs_sync.py   # re-tier if scores changed
 ```
 
 Crontab entries:
 ```
 45 5 * * *   /home/alain/free-llm-api/cron/daily.sh >> /tmp/llm-pool-daily.log 2>&1
-45 5 * * 1   /home/alain/free-llm-api/cron/weekly.sh >> /tmp/llm-pool-weekly.log 2>&1
+48 5 * * 1   /home/alain/free-llm-api/cron/weekly.sh >> /tmp/llm-pool-weekly.log 2>&1
 ```
 
 ---
@@ -213,13 +218,12 @@ Crontab entries:
 ## API key setup needed
 
 ```bash
-# .env (never commit)
-GOOGLE_AI_STUDIO_KEY=...    # aistudio.google.com → Get API key
+# ~/.profile (sourced by cron scripts)
+GEMINI_API_KEY=...          # aistudio.google.com → Get API key
 OPENROUTER_API_KEY=...      # openrouter.ai → Keys
-MISTRAL_API_KEY=...         # console.mistral.ai → API keys
 GROQ_API_KEY=...            # console.groq.com → API keys
-GITHUB_TOKEN=...            # github.com → Settings → Developer → Tokens
-# NVIDIA NIM: phone verification required — optional
+CEREBRAS_API_KEY=...        # inference.cerebras.ai
+OLLAMA_API_KEY=...          # ollama.com/settings/keys
 ```
 
 ---

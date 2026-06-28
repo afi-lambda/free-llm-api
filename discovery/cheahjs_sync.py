@@ -41,7 +41,9 @@ SWEBENCH_SCORES: dict[str, float] = {
     "qwen/qwen3-32b": 0.35,
     "llama-3.1-8b-instant": 0.15,
     # Ollama Cloud (by model_param) — reuse scores from equivalent models above
-    "gpt-oss:120b": 0.38,
+    "gpt-oss:120b": 0.55,
+    "gpt-oss:20b": 0.48,
+    "minimax-m2.5": 0.758,
     "qwen3-coder:480b": 0.48,
 }
 
@@ -221,13 +223,22 @@ def fetch_cerebras_extra_models() -> list[dict]:
         for model_param, limits in CEREBRAS_EXTRA_MODELS.items()
     ]
 
-# Ollama Cloud — no cheahjs section and no public discovery API for free
-# cloud-tagged models, so this list is manually curated from
-# https://ollama.com/search?c=cloud. Free tier is GPU-time-based
-# (session resets every 5h, weekly reset every 7 days), not request-count
-# based, so no req_per_day/req_per_min limits are set here.
+# Ollama Cloud — no cheahjs section and /v1/models does not expose whether a
+# model is currently usable on this account's plan, so keep a manually curated,
+# coding-focused shortlist here and let health/liveness.py prove availability.
+# The list below reflects models that were live-probed as accessible on this
+# host's Ollama Cloud account on 2026-06-28; locked models such as glm-5.x,
+# deepseek-v3.2/v4, kimi-k2.5/2.6/2.7, and gemini-3-flash-preview are omitted.
+# Ollama's free tier is GPU-time-based (session resets every 5h, weekly reset
+# every 7 days), not request-count based, so no req_per_day/req_per_min limits
+# are set here.
 OLLAMA_CLOUD_MODELS: list[str] = [
+    "minimax-m2.5",
+    "gpt-oss:20b",
     "gpt-oss:120b",
+    "glm-4.7",
+    "nemotron-3-super",
+    "qwen3-coder-next",
     "qwen3-coder:480b",
     "gemma4:31b",
 ]

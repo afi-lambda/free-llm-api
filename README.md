@@ -8,10 +8,10 @@ Self-maintaining pool of free LLM APIs, ranked by coding quality, with automatic
 discovery/          Model discovery & tier assignment
   cheahjs_sync.py     Daily: pull free model list from cheahjs/free-llm-api-resources,
                       plus curated entries for providers/models not yet listed there
-                      (Ollama Cloud, Cerebras zai-glm-4.7). OpenRouter's :free
-                      req_per_day is resolved live from the key's funding status
-                      (50/day on free tier, 1000/day once >=10 credits purchased)
-                      rather than hardcoded.
+                      (Ollama Cloud coding shortlist, Cerebras zai-glm-4.7).
+                      OpenRouter's :free req_per_day is resolved live from the
+                      key's funding status (50/day on free tier, 1000/day once
+                      >=10 credits purchased) rather than hardcoded.
   swebench.py         Weekly: refresh SWE-bench Verified scores for tier assignment
 
 health/             Liveness & quality checks
@@ -52,6 +52,11 @@ Tier reflects code-quality ranking only, not quota headroom. Google AI Studio's
 smoke-test run exhausts the day's quota. Treat them as best-effort bonus
 candidates, not dependable pool members; everything else in the registry sits
 at 250+ RPD (most OpenRouter/Groq models resolve to 1000+, Cerebras to 14400).
+
+Ollama Cloud is also account-specific: `/v1/models` lists the catalog but does
+not say which models are actually usable on the current plan. This repo keeps a
+manual Ollama coding shortlist in `discovery/cheahjs_sync.py`, then relies on
+`health/liveness.py` to prove which of those models really answer on this host.
 
 ## Setup
 
