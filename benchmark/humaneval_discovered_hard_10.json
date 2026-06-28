@@ -1,0 +1,145 @@
+[
+  {
+    "id": "HE-67",
+    "prompt": "\ndef fruit_distribution(s,n):\n    \"\"\"\n    In this task, you will be given a string that represents a number of apples and oranges \n    that are distributed in a basket of fruit this basket contains \n    apples, oranges, and mango fruits. Given the string that represents the total number of \n    the oranges and apples and an integer that represent the total number of the fruits \n    in the basket return the number of the mango fruits in the basket.\n    for examble:\n    fruit_distribution(\"5 apples and 6 oranges\", 19) ->19 - 5 - 6 = 8\n    fruit_distribution(\"0 apples and 1 oranges\",3) -> 3 - 0 - 1 = 2\n    fruit_distribution(\"2 apples and 3 oranges\", 100) -> 100 - 2 - 3 = 95\n    fruit_distribution(\"100 apples and 1 oranges\",120) -> 120 - 100 - 1 = 19\n    \"\"\"\n",
+    "entry_point": "fruit_distribution",
+    "tests": [
+      "assert fruit_distribution('5 apples and 6 oranges', 19) == 8",
+      "assert fruit_distribution('5 apples and 6 oranges', 21) == 10",
+      "assert fruit_distribution('0 apples and 1 oranges', 3) == 2",
+      "assert fruit_distribution('1 apples and 0 oranges', 3) == 2",
+      "assert fruit_distribution('2 apples and 3 oranges', 100) == 95",
+      "assert fruit_distribution('2 apples and 3 oranges', 5) == 0",
+      "assert fruit_distribution('1 apples and 100 oranges', 120) == 19"
+    ]
+  },
+  {
+    "id": "HE-130",
+    "prompt": "\ndef tri(n):\n    \"\"\"Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in \n    the last couple centuries. However, what people don't know is Tribonacci sequence.\n    Tribonacci sequence is defined by the recurrence:\n    tri(1) = 3\n    tri(n) = 1 + n / 2, if n is even.\n    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.\n    For example:\n    tri(2) = 1 + (2 / 2) = 2\n    tri(4) = 3\n    tri(3) = tri(2) + tri(1) + tri(4)\n           = 2 + 3 + 3 = 8 \n    You are given a non-negative integer number n, you have to a return a list of the \n    first n + 1 numbers of the Tribonacci sequence.\n    Examples:\n    tri(3) = [1, 3, 2, 8]\n    \"\"\"\n",
+    "entry_point": "tri",
+    "tests": [
+      "assert tri(3) == [1, 3, 2.0, 8.0]",
+      "assert tri(4) == [1, 3, 2.0, 8.0, 3.0]",
+      "assert tri(5) == [1, 3, 2.0, 8.0, 3.0, 15.0]",
+      "assert tri(6) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0]",
+      "assert tri(7) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0]",
+      "assert tri(8) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0]",
+      "assert tri(9) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0, 35.0]",
+      "assert tri(20) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0, 35.0, 6.0, 48.0, 7.0, 63.0, 8.0, 80.0, 9.0, 99.0, 10.0, 120.0, 11.0]",
+      "assert tri(0) == [1]",
+      "assert tri(1) == [1, 3]"
+    ]
+  },
+  {
+    "id": "HE-54",
+    "prompt": "\n\ndef same_chars(s0: str, s1: str):\n    \"\"\"\n    Check if two words have the same characters.\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')\n    True\n    >>> same_chars('abcd', 'dddddddabc')\n    True\n    >>> same_chars('dddddddabc', 'abcd')\n    True\n    >>> same_chars('eabcd', 'dddddddabc')\n    False\n    >>> same_chars('abcd', 'dddddddabce')\n    False\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')\n    False\n    \"\"\"\n",
+    "entry_point": "same_chars",
+    "tests": [
+      "assert same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc') == True",
+      "assert same_chars('abcd', 'dddddddabc') == True",
+      "assert same_chars('dddddddabc', 'abcd') == True",
+      "assert same_chars('eabcd', 'dddddddabc') == False",
+      "assert same_chars('abcd', 'dddddddabcf') == False",
+      "assert same_chars('eabcdzzzz', 'dddzzzzzzzddddabc') == False",
+      "assert same_chars('aabb', 'aaccc') == False"
+    ]
+  },
+  {
+    "id": "HE-125",
+    "prompt": "\ndef split_words(txt):\n    '''\n    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you\n    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the\n    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25\n    Examples\n    split_words(\"Hello world!\") \u279e [\"Hello\", \"world!\"]\n    split_words(\"Hello,world!\") \u279e [\"Hello\", \"world!\"]\n    split_words(\"abcdef\") == 3 \n    '''\n",
+    "entry_point": "split_words",
+    "tests": [
+      "assert split_words('Hello world!') == ['Hello', 'world!']",
+      "assert split_words('Hello,world!') == ['Hello', 'world!']",
+      "assert split_words('Hello world,!') == ['Hello', 'world,!']",
+      "assert split_words('Hello,Hello,world !') == ['Hello,Hello,world', '!']",
+      "assert split_words('abcdef') == 3",
+      "assert split_words('aaabb') == 2",
+      "assert split_words('aaaBb') == 1",
+      "assert split_words('') == 0"
+    ]
+  },
+  {
+    "id": "HE-160",
+    "prompt": "\ndef do_algebra(operator, operand):\n    \"\"\"\n    Given two lists operator, and operand. The first list has basic algebra operations, and \n    the second list is a list of integers. Use the two given lists to build the algebric \n    expression and return the evaluation of this expression.\n\n    The basic algebra operations:\n    Addition ( + ) \n    Subtraction ( - ) \n    Multiplication ( * ) \n    Floor division ( // ) \n    Exponentiation ( ** ) \n\n    Example:\n    operator['+', '*', '-']\n    array = [2, 3, 4, 5]\n    result = 2 + 3 * 4 - 5\n    => result = 9\n\n    Note:\n        The length of operator list is equal to the length of operand list minus one.\n        Operand is a list of of non-negative integers.\n        Operator list has at least one operator, and operand list has at least two operands.\n\n    \"\"\"\n",
+    "entry_point": "do_algebra",
+    "tests": [
+      "assert do_algebra(['**', '*', '+'], [2, 3, 4, 5]) == 37",
+      "assert do_algebra(['+', '*', '-'], [2, 3, 4, 5]) == 9",
+      "assert do_algebra(['//', '*'], [7, 3, 4]) == 8, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-65",
+    "prompt": "\ndef circular_shift(x, shift):\n    \"\"\"Circular shift the digits of the integer x, shift the digits right by shift\n    and return the result as a string.\n    If shift > number of digits, return digits reversed.\n    >>> circular_shift(12, 1)\n    \"21\"\n    >>> circular_shift(12, 2)\n    \"12\"\n    \"\"\"\n",
+    "entry_point": "circular_shift",
+    "tests": [
+      "assert circular_shift(100, 2) == '001'",
+      "assert circular_shift(12, 2) == '12'",
+      "assert circular_shift(97, 8) == '79'",
+      "assert circular_shift(12, 1) == '21', 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert circular_shift(11, 101) == '11', 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-134",
+    "prompt": "\ndef check_if_last_char_is_a_letter(txt):\n    '''\n    Create a function that returns True if the last character\n    of a given string is an alphabetical character and is not\n    a part of a word, and False otherwise.\n    Note: \"word\" is a group of characters separated by space.\n\n    Examples:\n    check_if_last_char_is_a_letter(\"apple pie\") \u279e False\n    check_if_last_char_is_a_letter(\"apple pi e\") \u279e True\n    check_if_last_char_is_a_letter(\"apple pi e \") \u279e False\n    check_if_last_char_is_a_letter(\"\") \u279e False \n    '''\n",
+    "entry_point": "check_if_last_char_is_a_letter",
+    "tests": [
+      "assert check_if_last_char_is_a_letter('apple') == False",
+      "assert check_if_last_char_is_a_letter('apple pi e') == True",
+      "assert check_if_last_char_is_a_letter('eeeee') == False",
+      "assert check_if_last_char_is_a_letter('A') == True",
+      "assert check_if_last_char_is_a_letter('Pumpkin pie ') == False",
+      "assert check_if_last_char_is_a_letter('Pumpkin pie 1') == False",
+      "assert check_if_last_char_is_a_letter('') == False",
+      "assert check_if_last_char_is_a_letter('eeeee e ') == False",
+      "assert check_if_last_char_is_a_letter('apple pie') == False",
+      "assert check_if_last_char_is_a_letter('apple pi e ') == False",
+      "assert True"
+    ]
+  },
+  {
+    "id": "HE-63",
+    "prompt": "\n\ndef fibfib(n: int):\n    \"\"\"The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:\n    fibfib(0) == 0\n    fibfib(1) == 0\n    fibfib(2) == 1\n    fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).\n    Please write a function to efficiently compute the n-th element of the fibfib number sequence.\n    >>> fibfib(1)\n    0\n    >>> fibfib(5)\n    4\n    >>> fibfib(8)\n    24\n    \"\"\"\n",
+    "entry_point": "fibfib",
+    "tests": [
+      "assert fibfib(2) == 1",
+      "assert fibfib(1) == 0",
+      "assert fibfib(5) == 4",
+      "assert fibfib(8) == 24",
+      "assert fibfib(10) == 81",
+      "assert fibfib(12) == 274",
+      "assert fibfib(14) == 927"
+    ]
+  },
+  {
+    "id": "HE-115",
+    "prompt": "\ndef max_fill(grid, capacity):\n    import math\n    \"\"\"\n    You are given a rectangular grid of wells. Each row represents a single well,\n    and each 1 in a row represents a single unit of water.\n    Each well has a corresponding bucket that can be used to extract water from it, \n    and all buckets have the same capacity.\n    Your task is to use the buckets to empty the wells.\n    Output the number of times you need to lower the buckets.\n\n    Example 1:\n        Input: \n            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]\n            bucket_capacity : 1\n        Output: 6\n\n    Example 2:\n        Input: \n            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]\n            bucket_capacity : 2\n        Output: 5\n    \n    Example 3:\n        Input: \n            grid : [[0,0,0], [0,0,0]]\n            bucket_capacity : 5\n        Output: 0\n\n    Constraints:\n        * all wells have the same length\n        * 1 <= grid.length <= 10^2\n        * 1 <= grid[:,1].length <= 10^2\n        * grid[i][j] -> 0 | 1\n        * 1 <= capacity <= 10\n    \"\"\"\n",
+    "entry_point": "max_fill",
+    "tests": [
+      "assert True, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert max_fill([[0, 0, 1, 0], [0, 1, 0, 0], [1, 1, 1, 1]], 1) == 6, 'Error'",
+      "assert max_fill([[0, 0, 1, 1], [0, 0, 0, 0], [1, 1, 1, 1], [0, 1, 1, 1]], 2) == 5, 'Error'",
+      "assert max_fill([[0, 0, 0], [0, 0, 0]], 5) == 0, 'Error'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert max_fill([[1, 1, 1, 1], [1, 1, 1, 1]], 2) == 4, 'Error'",
+      "assert max_fill([[1, 1, 1, 1], [1, 1, 1, 1]], 9) == 2, 'Error'"
+    ]
+  },
+  {
+    "id": "HE-91",
+    "prompt": "\ndef is_bored(S):\n    \"\"\"\n    You'll be given a string of words, and your task is to count the number\n    of boredoms. A boredom is a sentence that starts with the word \"I\".\n    Sentences are delimited by '.', '?' or '!'.\n   \n    For example:\n    >>> is_bored(\"Hello world\")\n    0\n    >>> is_bored(\"The sky is blue. The sun is shining. I love this weather\")\n    1\n    \"\"\"\n",
+    "entry_point": "is_bored",
+    "tests": [
+      "assert is_bored('Hello world') == 0, 'Test 1'",
+      "assert is_bored('Is the sky blue?') == 0, 'Test 2'",
+      "assert is_bored('I love It !') == 1, 'Test 3'",
+      "assert is_bored('bIt') == 0, 'Test 4'",
+      "assert is_bored('I feel good today. I will be productive. will kill It') == 2, 'Test 5'",
+      "assert is_bored('You and I are going for a walk') == 0, 'Test 6'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  }
+]

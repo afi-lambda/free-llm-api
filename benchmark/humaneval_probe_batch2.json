@@ -1,0 +1,280 @@
+[
+  {
+    "id": "HE-18",
+    "prompt": "\n\ndef how_many_times(string: str, substring: str) -> int:\n    \"\"\" Find how many times a given substring can be found in the original string. Count overlaping cases.\n    >>> how_many_times('', 'a')\n    0\n    >>> how_many_times('aaa', 'a')\n    3\n    >>> how_many_times('aaaa', 'aa')\n    3\n    \"\"\"\n",
+    "entry_point": "how_many_times",
+    "tests": [
+      "assert how_many_times('', 'x') == 0",
+      "assert how_many_times('xyxyxyx', 'x') == 4",
+      "assert how_many_times('cacacacac', 'cac') == 4",
+      "assert how_many_times('john doe', 'john') == 1"
+    ]
+  },
+  {
+    "id": "HE-21",
+    "prompt": "from typing import List\n\n\ndef rescale_to_unit(numbers: List[float]) -> List[float]:\n    \"\"\" Given list of numbers (of at least two elements), apply a linear transform to that list,\n    such that the smallest number will become 0 and the largest will become 1\n    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])\n    [0.0, 0.25, 0.5, 0.75, 1.0]\n    \"\"\"\n",
+    "entry_point": "rescale_to_unit",
+    "tests": [
+      "assert rescale_to_unit([2.0, 49.9]) == [0.0, 1.0]",
+      "assert rescale_to_unit([100.0, 49.9]) == [1.0, 0.0]",
+      "assert rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0]) == [0.0, 0.25, 0.5, 0.75, 1.0]",
+      "assert rescale_to_unit([2.0, 1.0, 5.0, 3.0, 4.0]) == [0.25, 0.0, 1.0, 0.5, 0.75]",
+      "assert rescale_to_unit([12.0, 11.0, 15.0, 13.0, 14.0]) == [0.25, 0.0, 1.0, 0.5, 0.75]"
+    ]
+  },
+  {
+    "id": "HE-22",
+    "prompt": "from typing import List, Any\n\n\ndef filter_integers(values: List[Any]) -> List[int]:\n    \"\"\" Filter given list of any python values only for integers\n    >>> filter_integers(['a', 3.14, 5])\n    [5]\n    >>> filter_integers([1, 2, 3, 'abc', {}, []])\n    [1, 2, 3]\n    \"\"\"\n",
+    "entry_point": "filter_integers",
+    "tests": [
+      "assert filter_integers([]) == []",
+      "assert filter_integers([4, {}, [], 23.2, 9, 'adasd']) == [4, 9]",
+      "assert filter_integers([3, 'c', 3, 3, 'a', 'b']) == [3, 3, 3]"
+    ]
+  },
+  {
+    "id": "HE-24",
+    "prompt": "\n\ndef largest_divisor(n: int) -> int:\n    \"\"\" For a given number n, find the largest number that divides n evenly, smaller than n\n    >>> largest_divisor(15)\n    5\n    \"\"\"\n",
+    "entry_point": "largest_divisor",
+    "tests": [
+      "assert largest_divisor(3) == 1",
+      "assert largest_divisor(7) == 1",
+      "assert largest_divisor(10) == 5",
+      "assert largest_divisor(100) == 50",
+      "assert largest_divisor(49) == 7"
+    ]
+  },
+  {
+    "id": "HE-25",
+    "prompt": "from typing import List\n\n\ndef factorize(n: int) -> List[int]:\n    \"\"\" Return list of prime factors of given integer in the order from smallest to largest.\n    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.\n    Input number should be equal to the product of all factors\n    >>> factorize(8)\n    [2, 2, 2]\n    >>> factorize(25)\n    [5, 5]\n    >>> factorize(70)\n    [2, 5, 7]\n    \"\"\"\n",
+    "entry_point": "factorize",
+    "tests": [
+      "assert factorize(2) == [2]",
+      "assert factorize(4) == [2, 2]",
+      "assert factorize(8) == [2, 2, 2]",
+      "assert factorize(3 * 19) == [3, 19]",
+      "assert factorize(3 * 19 * 3 * 19) == [3, 3, 19, 19]",
+      "assert factorize(3 * 19 * 3 * 19 * 3 * 19) == [3, 3, 3, 19, 19, 19]",
+      "assert factorize(3 * 19 * 19 * 19) == [3, 19, 19, 19]",
+      "assert factorize(3 * 2 * 3) == [2, 3, 3]"
+    ]
+  },
+  {
+    "id": "HE-28",
+    "prompt": "from typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n",
+    "entry_point": "concatenate",
+    "tests": [
+      "assert concatenate([]) == ''",
+      "assert concatenate(['x', 'y', 'z']) == 'xyz'",
+      "assert concatenate(['x', 'y', 'z', 'w', 'k']) == 'xyzwk'"
+    ]
+  },
+  {
+    "id": "HE-29",
+    "prompt": "from typing import List\n\n\ndef filter_by_prefix(strings: List[str], prefix: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that start with a given prefix.\n    >>> filter_by_prefix([], 'a')\n    []\n    >>> filter_by_prefix(['abc', 'bcd', 'cde', 'array'], 'a')\n    ['abc', 'array']\n    \"\"\"\n",
+    "entry_point": "filter_by_prefix",
+    "tests": [
+      "assert filter_by_prefix([], 'john') == []",
+      "assert filter_by_prefix(['xxx', 'asd', 'xxy', 'john doe', 'xxxAAA', 'xxx'], 'xxx') == ['xxx', 'xxxAAA', 'xxx']"
+    ]
+  },
+  {
+    "id": "HE-44",
+    "prompt": "\n\ndef change_base(x: int, base: int):\n    \"\"\"Change numerical base of input number x to base.\n    return string representation after the conversion.\n    base numbers are less than 10.\n    >>> change_base(8, 3)\n    '22'\n    >>> change_base(8, 2)\n    '1000'\n    >>> change_base(7, 2)\n    '111'\n    \"\"\"\n",
+    "entry_point": "change_base",
+    "tests": [
+      "assert change_base(8, 3) == '22'",
+      "assert change_base(9, 3) == '100'",
+      "assert change_base(234, 2) == '11101010'",
+      "assert change_base(16, 2) == '10000'",
+      "assert change_base(8, 2) == '1000'",
+      "assert change_base(7, 2) == '111'"
+    ]
+  },
+  {
+    "id": "HE-54",
+    "prompt": "\n\ndef same_chars(s0: str, s1: str):\n    \"\"\"\n    Check if two words have the same characters.\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')\n    True\n    >>> same_chars('abcd', 'dddddddabc')\n    True\n    >>> same_chars('dddddddabc', 'abcd')\n    True\n    >>> same_chars('eabcd', 'dddddddabc')\n    False\n    >>> same_chars('abcd', 'dddddddabce')\n    False\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')\n    False\n    \"\"\"\n",
+    "entry_point": "same_chars",
+    "tests": [
+      "assert same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc') == True",
+      "assert same_chars('abcd', 'dddddddabc') == True",
+      "assert same_chars('dddddddabc', 'abcd') == True",
+      "assert same_chars('eabcd', 'dddddddabc') == False",
+      "assert same_chars('abcd', 'dddddddabcf') == False",
+      "assert same_chars('eabcdzzzz', 'dddzzzzzzzddddabc') == False",
+      "assert same_chars('aabb', 'aaccc') == False"
+    ]
+  },
+  {
+    "id": "HE-58",
+    "prompt": "\n\ndef common(l1: list, l2: list):\n    \"\"\"Return sorted unique common elements for two lists.\n    >>> common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121])\n    [1, 5, 653]\n    >>> common([5, 3, 2, 8], [3, 2])\n    [2, 3]\n\n    \"\"\"\n",
+    "entry_point": "common",
+    "tests": [
+      "assert common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121]) == [1, 5, 653]",
+      "assert common([5, 3, 2, 8], [3, 2]) == [2, 3]",
+      "assert common([4, 3, 2, 8], [3, 2, 4]) == [2, 3, 4]",
+      "assert common([4, 3, 2, 8], []) == []"
+    ]
+  },
+  {
+    "id": "HE-74",
+    "prompt": "\ndef total_match(lst1, lst2):\n    '''\n    Write a function that accepts two lists of strings and returns the list that has \n    total number of chars in the all strings of the list less than the other list.\n\n    if the two lists have the same number of chars, return the first list.\n\n    Examples\n    total_match([], []) \u279e []\n    total_match(['hi', 'admin'], ['hI', 'Hi']) \u279e ['hI', 'Hi']\n    total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']) \u279e ['hi', 'admin']\n    total_match(['hi', 'admin'], ['hI', 'hi', 'hi']) \u279e ['hI', 'hi', 'hi']\n    total_match(['4'], ['1', '2', '3', '4', '5']) \u279e ['4']\n    '''\n",
+    "entry_point": "total_match",
+    "tests": [
+      "assert True, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert total_match([], []) == []",
+      "assert total_match(['hi', 'admin'], ['hi', 'hi']) == ['hi', 'hi']",
+      "assert total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']) == ['hi', 'admin']",
+      "assert total_match(['4'], ['1', '2', '3', '4', '5']) == ['4']",
+      "assert total_match(['hi', 'admin'], ['hI', 'Hi']) == ['hI', 'Hi']",
+      "assert total_match(['hi', 'admin'], ['hI', 'hi', 'hi']) == ['hI', 'hi', 'hi']",
+      "assert total_match(['hi', 'admin'], ['hI', 'hi', 'hii']) == ['hi', 'admin']",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert total_match([], ['this']) == []",
+      "assert total_match(['this'], []) == []"
+    ]
+  },
+  {
+    "id": "HE-82",
+    "prompt": "\ndef prime_length(string):\n    \"\"\"Write a function that takes a string and returns True if the string\n    length is a prime number or False otherwise\n    Examples\n    prime_length('Hello') == True\n    prime_length('abcdcba') == True\n    prime_length('kittens') == True\n    prime_length('orange') == False\n    \"\"\"\n",
+    "entry_point": "prime_length",
+    "tests": [
+      "assert prime_length('Hello') == True",
+      "assert prime_length('abcdcba') == True",
+      "assert prime_length('kittens') == True",
+      "assert prime_length('orange') == False",
+      "assert prime_length('wow') == True",
+      "assert prime_length('world') == True",
+      "assert prime_length('MadaM') == True",
+      "assert prime_length('Wow') == True",
+      "assert prime_length('') == False",
+      "assert prime_length('HI') == True",
+      "assert prime_length('go') == True",
+      "assert prime_length('gogo') == False",
+      "assert prime_length('aaaaaaaaaaaaaaa') == False",
+      "assert prime_length('Madam') == True",
+      "assert prime_length('M') == False",
+      "assert prime_length('0') == False"
+    ]
+  },
+  {
+    "id": "HE-91",
+    "prompt": "\ndef is_bored(S):\n    \"\"\"\n    You'll be given a string of words, and your task is to count the number\n    of boredoms. A boredom is a sentence that starts with the word \"I\".\n    Sentences are delimited by '.', '?' or '!'.\n   \n    For example:\n    >>> is_bored(\"Hello world\")\n    0\n    >>> is_bored(\"The sky is blue. The sun is shining. I love this weather\")\n    1\n    \"\"\"\n",
+    "entry_point": "is_bored",
+    "tests": [
+      "assert is_bored('Hello world') == 0, 'Test 1'",
+      "assert is_bored('Is the sky blue?') == 0, 'Test 2'",
+      "assert is_bored('I love It !') == 1, 'Test 3'",
+      "assert is_bored('bIt') == 0, 'Test 4'",
+      "assert is_bored('I feel good today. I will be productive. will kill It') == 2, 'Test 5'",
+      "assert is_bored('You and I are going for a walk') == 0, 'Test 6'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-94",
+    "prompt": "\n\ndef skjkasdkd(lst):\n    \"\"\"You are given a list of integers.\n    You need to find the largest prime value and return the sum of its digits.\n\n    Examples:\n    For lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3] the output should be 10\n    For lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1] the output should be 25\n    For lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3] the output should be 13\n    For lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6] the output should be 11\n    For lst = [0,81,12,3,1,21] the output should be 3\n    For lst = [0,8,1,2,1,7] the output should be 7\n    \"\"\"\n",
+    "entry_point": "skjkasdkd",
+    "tests": [
+      "assert skjkasdkd([0, 3, 2, 1, 3, 5, 7, 4, 5, 5, 5, 2, 181, 32, 4, 32, 3, 2, 32, 324, 4, 3]) == 10, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert skjkasdkd([1, 0, 1, 8, 2, 4597, 2, 1, 3, 40, 1, 2, 1, 2, 4, 2, 5, 1]) == 25, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert skjkasdkd([1, 3, 1, 32, 5107, 34, 83278, 109, 163, 23, 2323, 32, 30, 1, 9, 3]) == 13, 'This prints if this assert fails 3 (also good for debugging!)'",
+      "assert skjkasdkd([0, 724, 32, 71, 99, 32, 6, 0, 5, 91, 83, 0, 5, 6]) == 11, 'This prints if this assert fails 4 (also good for debugging!)'",
+      "assert skjkasdkd([0, 81, 12, 3, 1, 21]) == 3, 'This prints if this assert fails 5 (also good for debugging!)'",
+      "assert skjkasdkd([0, 8, 1, 2, 1, 7]) == 7, 'This prints if this assert fails 6 (also good for debugging!)'",
+      "assert skjkasdkd([8191]) == 19, 'This prints if this assert fails 7 (also good for debugging!)'",
+      "assert skjkasdkd([8191, 123456, 127, 7]) == 19, 'This prints if this assert fails 8 (also good for debugging!)'",
+      "assert skjkasdkd([127, 97, 8192]) == 10, 'This prints if this assert fails 9 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-99",
+    "prompt": "\ndef closest_integer(value):\n    '''\n    Create a function that takes a value (string) representing a number\n    and returns the closest integer to it. If the number is equidistant\n    from two integers, round it away from zero.\n\n    Examples\n    >>> closest_integer(\"10\")\n    10\n    >>> closest_integer(\"15.3\")\n    15\n\n    Note:\n    Rounding away from zero means that if the given number is equidistant\n    from two integers, the one you should return is the one that is the\n    farthest from zero. For example closest_integer(\"14.5\") should\n    return 15 and closest_integer(\"-14.5\") should return -15.\n    '''\n",
+    "entry_point": "closest_integer",
+    "tests": [
+      "assert closest_integer('10') == 10, 'Test 1'",
+      "assert closest_integer('14.5') == 15, 'Test 2'",
+      "assert closest_integer('-15.5') == -16, 'Test 3'",
+      "assert closest_integer('15.3') == 15, 'Test 3'",
+      "assert closest_integer('0') == 0, 'Test 0'"
+    ]
+  },
+  {
+    "id": "HE-112",
+    "prompt": "\ndef reverse_delete(s,c):\n    \"\"\"Task\n    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c\n    then check if the result string is palindrome.\n    A string is called palindrome if it reads the same backward as forward.\n    You should return a tuple containing the result string and True/False for the check.\n    Example\n    For s = \"abcde\", c = \"ae\", the result should be ('bcd',False)\n    For s = \"abcdef\", c = \"b\"  the result should be ('acdef',False)\n    For s = \"abcdedcba\", c = \"ab\", the result should be ('cdedc',True)\n    \"\"\"\n",
+    "entry_point": "reverse_delete",
+    "tests": [
+      "assert reverse_delete('abcde', 'ae') == ('bcd', False)",
+      "assert reverse_delete('abcdef', 'b') == ('acdef', False)",
+      "assert reverse_delete('abcdedcba', 'ab') == ('cdedc', True)",
+      "assert reverse_delete('dwik', 'w') == ('dik', False)",
+      "assert reverse_delete('a', 'a') == ('', True)",
+      "assert reverse_delete('abcdedcba', '') == ('abcdedcba', True)",
+      "assert reverse_delete('abcdedcba', 'v') == ('abcdedcba', True)",
+      "assert reverse_delete('vabba', 'v') == ('abba', True)",
+      "assert reverse_delete('mamma', 'mia') == ('', True)"
+    ]
+  },
+  {
+    "id": "HE-120",
+    "prompt": "\ndef maximum(arr, k):\n    \"\"\"\n    Given an array arr of integers and a positive integer k, return a sorted list \n    of length k with the maximum k numbers in arr.\n\n    Example 1:\n\n        Input: arr = [-3, -4, 5], k = 3\n        Output: [-4, -3, 5]\n\n    Example 2:\n\n        Input: arr = [4, -4, 4], k = 2\n        Output: [4, 4]\n\n    Example 3:\n\n        Input: arr = [-3, 2, 1, 2, -1, -2, 1], k = 1\n        Output: [2]\n\n    Note:\n        1. The length of the array will be in the range of [1, 1000].\n        2. The elements in the array will be in the range of [-1000, 1000].\n        3. 0 <= k <= len(arr)\n    \"\"\"\n",
+    "entry_point": "maximum",
+    "tests": [
+      "assert maximum([-3, -4, 5], 3) == [-4, -3, 5]",
+      "assert maximum([4, -4, 4], 2) == [4, 4]",
+      "assert maximum([-3, 2, 1, 2, -1, -2, 1], 1) == [2]",
+      "assert maximum([123, -123, 20, 0, 1, 2, -3], 3) == [2, 20, 123]",
+      "assert maximum([-123, 20, 0, 1, 2, -3], 4) == [0, 1, 2, 20]",
+      "assert maximum([5, 15, 0, 3, -13, -8, 0], 7) == [-13, -8, 0, 0, 3, 5, 15]",
+      "assert maximum([-1, 0, 2, 5, 3, -10], 2) == [3, 5]",
+      "assert maximum([1, 0, 5, -7], 1) == [5]",
+      "assert maximum([4, -4], 2) == [-4, 4]",
+      "assert maximum([-10, 10], 2) == [-10, 10]",
+      "assert maximum([1, 2, 3, -23, 243, -400, 0], 0) == []"
+    ]
+  },
+  {
+    "id": "HE-123",
+    "prompt": "\ndef get_odd_collatz(n):\n    \"\"\"\n    Given a positive integer n, return a sorted list that has the odd numbers in collatz sequence.\n\n    The Collatz conjecture is a conjecture in mathematics that concerns a sequence defined\n    as follows: start with any positive integer n. Then each term is obtained from the \n    previous term as follows: if the previous term is even, the next term is one half of \n    the previous term. If the previous term is odd, the next term is 3 times the previous\n    term plus 1. The conjecture is that no matter what value of n, the sequence will always reach 1.\n\n    Note: \n        1. Collatz(1) is [1].\n        2. returned list sorted in increasing order.\n\n    For example:\n    get_odd_collatz(5) returns [1, 5] # The collatz sequence for 5 is [5, 16, 8, 4, 2, 1], so the odd numbers are only 1, and 5.\n    \"\"\"\n",
+    "entry_point": "get_odd_collatz",
+    "tests": [
+      "assert get_odd_collatz(14) == [1, 5, 7, 11, 13, 17]",
+      "assert get_odd_collatz(5) == [1, 5]",
+      "assert get_odd_collatz(12) == [1, 3, 5], 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert get_odd_collatz(1) == [1], 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-133",
+    "prompt": "\n\ndef sum_squares(lst):\n    \"\"\"You are given a list of numbers.\n    You need to return the sum of squared numbers in the given list,\n    round each element in the list to the upper int(Ceiling) first.\n    Examples:\n    For lst = [1,2,3] the output should be 14\n    For lst = [1,4,9] the output should be 98\n    For lst = [1,3,5,7] the output should be 84\n    For lst = [1.4,4.2,0] the output should be 29\n    For lst = [-2.4,1,1] the output should be 6\n    \n\n    \"\"\"\n",
+    "entry_point": "sum_squares",
+    "tests": [
+      "assert sum_squares([1, 2, 3]) == 14, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([1.0, 2, 3]) == 14, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([1, 3, 5, 7]) == 84, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([1.4, 4.2, 0]) == 29, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([-2.4, 1, 1]) == 6, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([100, 1, 15, 2]) == 10230, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([10000, 10000]) == 200000000, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([-1.4, 4.6, 6.3]) == 75, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([-1.4, 17.9, 18.9, 19.9]) == 1086, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sum_squares([0]) == 0, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert sum_squares([-1]) == 1, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert sum_squares([-1, 1, 0]) == 2, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-149",
+    "prompt": "\ndef sorted_list_sum(lst):\n    \"\"\"Write a function that accepts a list of strings as a parameter,\n    deletes the strings that have odd lengths from it,\n    and returns the resulted list with a sorted order,\n    The list is always a list of strings and never an array of numbers,\n    and it may contain duplicates.\n    The order of the list should be ascending by length of each word, and you\n    should return the list sorted by that rule.\n    If two words have the same length, sort the list alphabetically.\n    The function should return a list of strings in sorted order.\n    You may assume that all words will have the same length.\n    For example:\n    assert list_sort([\"aa\", \"a\", \"aaa\"]) => [\"aa\"]\n    assert list_sort([\"ab\", \"a\", \"aaa\", \"cd\"]) => [\"ab\", \"cd\"]\n    \"\"\"\n",
+    "entry_point": "sorted_list_sum",
+    "tests": [
+      "assert sorted_list_sum(['aa', 'a', 'aaa']) == ['aa']",
+      "assert sorted_list_sum(['school', 'AI', 'asdf', 'b']) == ['AI', 'asdf', 'school']",
+      "assert sorted_list_sum(['d', 'b', 'c', 'a']) == []",
+      "assert sorted_list_sum(['d', 'dcba', 'abcd', 'a']) == ['abcd', 'dcba']",
+      "assert sorted_list_sum(['AI', 'ai', 'au']) == ['AI', 'ai', 'au']",
+      "assert sorted_list_sum(['a', 'b', 'b', 'c', 'c', 'a']) == []",
+      "assert sorted_list_sum(['aaaa', 'bbbb', 'dd', 'cc']) == ['cc', 'dd', 'aaaa', 'bbbb']"
+    ]
+  }
+]
