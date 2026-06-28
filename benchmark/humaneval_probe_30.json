@@ -1,0 +1,432 @@
+[
+  {
+    "id": "HE-39",
+    "prompt": "\n\ndef prime_fib(n: int):\n    \"\"\"\n    prime_fib returns n-th number that is a Fibonacci number and it's also prime.\n    >>> prime_fib(1)\n    2\n    >>> prime_fib(2)\n    3\n    >>> prime_fib(3)\n    5\n    >>> prime_fib(4)\n    13\n    >>> prime_fib(5)\n    89\n    \"\"\"\n",
+    "entry_point": "prime_fib",
+    "tests": [
+      "assert prime_fib(1) == 2",
+      "assert prime_fib(2) == 3",
+      "assert prime_fib(3) == 5",
+      "assert prime_fib(4) == 13",
+      "assert prime_fib(5) == 89",
+      "assert prime_fib(6) == 233",
+      "assert prime_fib(7) == 1597",
+      "assert prime_fib(8) == 28657",
+      "assert prime_fib(9) == 514229",
+      "assert prime_fib(10) == 433494437"
+    ]
+  },
+  {
+    "id": "HE-46",
+    "prompt": "\n\ndef fib4(n: int):\n    \"\"\"The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:\n    fib4(0) -> 0\n    fib4(1) -> 0\n    fib4(2) -> 2\n    fib4(3) -> 0\n    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).\n    Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.\n    >>> fib4(5)\n    4\n    >>> fib4(6)\n    8\n    >>> fib4(7)\n    14\n    \"\"\"\n",
+    "entry_point": "fib4",
+    "tests": [
+      "assert fib4(5) == 4",
+      "assert fib4(8) == 28",
+      "assert fib4(10) == 104",
+      "assert fib4(12) == 386"
+    ]
+  },
+  {
+    "id": "HE-63",
+    "prompt": "\n\ndef fibfib(n: int):\n    \"\"\"The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:\n    fibfib(0) == 0\n    fibfib(1) == 0\n    fibfib(2) == 1\n    fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).\n    Please write a function to efficiently compute the n-th element of the fibfib number sequence.\n    >>> fibfib(1)\n    0\n    >>> fibfib(5)\n    4\n    >>> fibfib(8)\n    24\n    \"\"\"\n",
+    "entry_point": "fibfib",
+    "tests": [
+      "assert fibfib(2) == 1",
+      "assert fibfib(1) == 0",
+      "assert fibfib(5) == 4",
+      "assert fibfib(8) == 24",
+      "assert fibfib(10) == 81",
+      "assert fibfib(12) == 274",
+      "assert fibfib(14) == 927"
+    ]
+  },
+  {
+    "id": "HE-65",
+    "prompt": "\ndef circular_shift(x, shift):\n    \"\"\"Circular shift the digits of the integer x, shift the digits right by shift\n    and return the result as a string.\n    If shift > number of digits, return digits reversed.\n    >>> circular_shift(12, 1)\n    \"21\"\n    >>> circular_shift(12, 2)\n    \"12\"\n    \"\"\"\n",
+    "entry_point": "circular_shift",
+    "tests": [
+      "assert circular_shift(100, 2) == '001'",
+      "assert circular_shift(12, 2) == '12'",
+      "assert circular_shift(97, 8) == '79'",
+      "assert circular_shift(12, 1) == '21', 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert circular_shift(11, 101) == '11', 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-67",
+    "prompt": "\ndef fruit_distribution(s,n):\n    \"\"\"\n    In this task, you will be given a string that represents a number of apples and oranges \n    that are distributed in a basket of fruit this basket contains \n    apples, oranges, and mango fruits. Given the string that represents the total number of \n    the oranges and apples and an integer that represent the total number of the fruits \n    in the basket return the number of the mango fruits in the basket.\n    for examble:\n    fruit_distribution(\"5 apples and 6 oranges\", 19) ->19 - 5 - 6 = 8\n    fruit_distribution(\"0 apples and 1 oranges\",3) -> 3 - 0 - 1 = 2\n    fruit_distribution(\"2 apples and 3 oranges\", 100) -> 100 - 2 - 3 = 95\n    fruit_distribution(\"100 apples and 1 oranges\",120) -> 120 - 100 - 1 = 19\n    \"\"\"\n",
+    "entry_point": "fruit_distribution",
+    "tests": [
+      "assert fruit_distribution('5 apples and 6 oranges', 19) == 8",
+      "assert fruit_distribution('5 apples and 6 oranges', 21) == 10",
+      "assert fruit_distribution('0 apples and 1 oranges', 3) == 2",
+      "assert fruit_distribution('1 apples and 0 oranges', 3) == 2",
+      "assert fruit_distribution('2 apples and 3 oranges', 100) == 95",
+      "assert fruit_distribution('2 apples and 3 oranges', 5) == 0",
+      "assert fruit_distribution('1 apples and 100 oranges', 120) == 19"
+    ]
+  },
+  {
+    "id": "HE-68",
+    "prompt": "\ndef pluck(arr):\n    \"\"\"\n    \"Given an array representing a branch of a tree that has non-negative integer nodes\n    your task is to pluck one of the nodes and return it.\n    The plucked node should be the node with the smallest even value.\n    If multiple nodes with the same smallest even value are found return the node that has smallest index.\n\n    The plucked node should be returned in a list, [ smalest_value, its index ],\n    If there are no even values or the given array is empty, return [].\n\n    Example 1:\n        Input: [4,2,3]\n        Output: [2, 1]\n        Explanation: 2 has the smallest even value, and 2 has the smallest index.\n\n    Example 2:\n        Input: [1,2,3]\n        Output: [2, 1]\n        Explanation: 2 has the smallest even value, and 2 has the smallest index. \n\n    Example 3:\n        Input: []\n        Output: []\n    \n    Example 4:\n        Input: [5, 0, 3, 0, 4, 2]\n        Output: [0, 1]\n        Explanation: 0 is the smallest value, but  there are two zeros,\n                     so we will choose the first zero, which has the smallest index.\n\n    Constraints:\n        * 1 <= nodes.length <= 10000\n        * 0 <= node.value\n    \"\"\"\n",
+    "entry_point": "pluck",
+    "tests": [
+      "assert True, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert pluck([4, 2, 3]) == [2, 1], 'Error'",
+      "assert pluck([1, 2, 3]) == [2, 1], 'Error'",
+      "assert pluck([]) == [], 'Error'",
+      "assert pluck([5, 0, 3, 0, 4, 2]) == [0, 1], 'Error'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert pluck([1, 2, 3, 0, 5, 3]) == [0, 3], 'Error'",
+      "assert pluck([5, 4, 8, 4, 8]) == [4, 1], 'Error'",
+      "assert pluck([7, 6, 7, 1]) == [6, 1], 'Error'",
+      "assert pluck([7, 9, 7, 1]) == [], 'Error'"
+    ]
+  },
+  {
+    "id": "HE-84",
+    "prompt": "\ndef solve(N):\n    \"\"\"Given a positive integer N, return the total sum of its digits in binary.\n    \n    Example\n        For N = 1000, the sum of digits will be 1 the output should be \"1\".\n        For N = 150, the sum of digits will be 6 the output should be \"110\".\n        For N = 147, the sum of digits will be 12 the output should be \"1100\".\n    \n    Variables:\n        @N integer\n             Constraints: 0 \u2264 N \u2264 10000.\n    Output:\n         a string of binary number\n    \"\"\"\n",
+    "entry_point": "solve",
+    "tests": [
+      "assert True, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert solve(1000) == '1', 'Error'",
+      "assert solve(150) == '110', 'Error'",
+      "assert solve(147) == '1100', 'Error'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert solve(333) == '1001', 'Error'",
+      "assert solve(963) == '10010', 'Error'"
+    ]
+  },
+  {
+    "id": "HE-86",
+    "prompt": "\ndef anti_shuffle(s):\n    \"\"\"\n    Write a function that takes a string and returns an ordered version of it.\n    Ordered version of string, is a string where all words (separated by space)\n    are replaced by a new word where all the characters arranged in\n    ascending order based on ascii value.\n    Note: You should keep the order of words and blank spaces in the sentence.\n\n    For example:\n    anti_shuffle('Hi') returns 'Hi'\n    anti_shuffle('hello') returns 'ehllo'\n    anti_shuffle('Hello World!!!') returns 'Hello !!!Wdlor'\n    \"\"\"\n",
+    "entry_point": "anti_shuffle",
+    "tests": [
+      "assert anti_shuffle('Hi') == 'Hi'",
+      "assert anti_shuffle('hello') == 'ehllo'",
+      "assert anti_shuffle('number') == 'bemnru'",
+      "assert anti_shuffle('abcd') == 'abcd'",
+      "assert anti_shuffle('Hello World!!!') == 'Hello !!!Wdlor'",
+      "assert anti_shuffle('') == ''",
+      "assert anti_shuffle('Hi. My name is Mister Robot. How are you?') == '.Hi My aemn is Meirst .Rboot How aer ?ouy'",
+      "assert True"
+    ]
+  },
+  {
+    "id": "HE-89",
+    "prompt": "\ndef encrypt(s):\n    \"\"\"Create a function encrypt that takes a string as an argument and\n    returns a string encrypted with the alphabet being rotated. \n    The alphabet should be rotated in a manner such that the letters \n    shift down by two multiplied to two places.\n    For example:\n    encrypt('hi') returns 'lm'\n    encrypt('asdfghjkl') returns 'ewhjklnop'\n    encrypt('gf') returns 'kj'\n    encrypt('et') returns 'ix'\n    \"\"\"\n",
+    "entry_point": "encrypt",
+    "tests": [
+      "assert encrypt('hi') == 'lm', 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert encrypt('asdfghjkl') == 'ewhjklnop', 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert encrypt('gf') == 'kj', 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert encrypt('et') == 'ix', 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert encrypt('faewfawefaewg') == 'jeiajeaijeiak', 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert encrypt('hellomyfriend') == 'lippsqcjvmirh', 'This prints if this assert fails 2 (good for debugging!)'",
+      "assert encrypt('dxzdlmnilfuhmilufhlihufnmlimnufhlimnufhfucufh') == 'hbdhpqrmpjylqmpyjlpmlyjrqpmqryjlpmqryjljygyjl', 'This prints if this assert fails 3 (good for debugging!)'",
+      "assert encrypt('a') == 'e', 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-96",
+    "prompt": "\ndef count_up_to(n):\n    \"\"\"Implement a function that takes an non-negative integer and returns an array of the first n\n    integers that are prime numbers and less than n.\n    for example:\n    count_up_to(5) => [2,3]\n    count_up_to(11) => [2,3,5,7]\n    count_up_to(0) => []\n    count_up_to(20) => [2,3,5,7,11,13,17,19]\n    count_up_to(1) => []\n    count_up_to(18) => [2,3,5,7,11,13,17]\n    \"\"\"\n",
+    "entry_point": "count_up_to",
+    "tests": [
+      "assert count_up_to(5) == [2, 3]",
+      "assert count_up_to(6) == [2, 3, 5]",
+      "assert count_up_to(7) == [2, 3, 5]",
+      "assert count_up_to(10) == [2, 3, 5, 7]",
+      "assert count_up_to(0) == []",
+      "assert count_up_to(22) == [2, 3, 5, 7, 11, 13, 17, 19]",
+      "assert count_up_to(1) == []",
+      "assert count_up_to(18) == [2, 3, 5, 7, 11, 13, 17]",
+      "assert count_up_to(47) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43]",
+      "assert count_up_to(101) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]"
+    ]
+  },
+  {
+    "id": "HE-98",
+    "prompt": "\ndef count_upper(s):\n    \"\"\"\n    Given a string s, count the number of uppercase vowels in even indices.\n    \n    For example:\n    count_upper('aBCdEf') returns 1\n    count_upper('abcdefg') returns 0\n    count_upper('dBBE') returns 0\n    \"\"\"\n",
+    "entry_point": "count_upper",
+    "tests": [
+      "assert count_upper('aBCdEf') == 1",
+      "assert count_upper('abcdefg') == 0",
+      "assert count_upper('dBBE') == 0",
+      "assert count_upper('B') == 0",
+      "assert count_upper('U') == 1",
+      "assert count_upper('') == 0",
+      "assert count_upper('EEEE') == 2",
+      "assert True"
+    ]
+  },
+  {
+    "id": "HE-100",
+    "prompt": "\ndef make_a_pile(n):\n    \"\"\"\n    Given a positive integer n, you have to make a pile of n levels of stones.\n    The first level has n stones.\n    The number of stones in the next level is:\n        - the next odd number if n is odd.\n        - the next even number if n is even.\n    Return the number of stones in each level in a list, where element at index\n    i represents the number of stones in the level (i+1).\n\n    Examples:\n    >>> make_a_pile(3)\n    [3, 5, 7]\n    \"\"\"\n",
+    "entry_point": "make_a_pile",
+    "tests": [
+      "assert make_a_pile(3) == [3, 5, 7], 'Test 3'",
+      "assert make_a_pile(4) == [4, 6, 8, 10], 'Test 4'",
+      "assert make_a_pile(5) == [5, 7, 9, 11, 13]",
+      "assert make_a_pile(6) == [6, 8, 10, 12, 14, 16]",
+      "assert make_a_pile(8) == [8, 10, 12, 14, 16, 18, 20, 22]",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-104",
+    "prompt": "\ndef unique_digits(x):\n    \"\"\"Given a list of positive integers x. return a sorted list of all \n    elements that hasn't any even digit.\n\n    Note: Returned list should be sorted in increasing order.\n    \n    For example:\n    >>> unique_digits([15, 33, 1422, 1])\n    [1, 15, 33]\n    >>> unique_digits([152, 323, 1422, 10])\n    []\n    \"\"\"\n",
+    "entry_point": "unique_digits",
+    "tests": [
+      "assert unique_digits([15, 33, 1422, 1]) == [1, 15, 33]",
+      "assert unique_digits([152, 323, 1422, 10]) == []",
+      "assert unique_digits([12345, 2033, 111, 151]) == [111, 151]",
+      "assert unique_digits([135, 103, 31]) == [31, 135]",
+      "assert True"
+    ]
+  },
+  {
+    "id": "HE-109",
+    "prompt": "\ndef move_one_ball(arr):\n    \"\"\"We have an array 'arr' of N integers arr[1], arr[2], ..., arr[N].The\n    numbers in the array will be randomly ordered. Your task is to determine if\n    it is possible to get an array sorted in non-decreasing order by performing \n    the following operation on the given array:\n        You are allowed to perform right shift operation any number of times.\n    \n    One right shift operation means shifting all elements of the array by one\n    position in the right direction. The last element of the array will be moved to\n    the starting position in the array i.e. 0th index. \n\n    If it is possible to obtain the sorted array by performing the above operation\n    then return True else return False.\n    If the given array is empty then return True.\n\n    Note: The given list is guaranteed to have unique elements.\n\n    For Example:\n    \n    move_one_ball([3, 4, 5, 1, 2])==>True\n    Explanation: By performin 2 right shift operations, non-decreasing order can\n                 be achieved for the given array.\n    move_one_ball([3, 5, 4, 1, 2])==>False\n    Explanation:It is not possible to get non-decreasing order for the given\n                array by performing any number of right shift operations.\n                \n    \"\"\"\n",
+    "entry_point": "move_one_ball",
+    "tests": [
+      "assert move_one_ball([3, 4, 5, 1, 2]) == True, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert move_one_ball([3, 5, 10, 1, 2]) == True",
+      "assert move_one_ball([4, 3, 1, 2]) == False",
+      "assert move_one_ball([3, 5, 4, 1, 2]) == False, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert move_one_ball([]) == True"
+    ]
+  },
+  {
+    "id": "HE-113",
+    "prompt": "\ndef odd_count(lst):\n    \"\"\"Given a list of strings, where each string consists of only digits, return a list.\n    Each element i of the output should be \"the number of odd elements in the\n    string i of the input.\" where all the i's should be replaced by the number\n    of odd digits in the i'th string of the input.\n\n    >>> odd_count(['1234567'])\n    [\"the number of odd elements 4n the str4ng 4 of the 4nput.\"]\n    >>> odd_count(['3',\"11111111\"])\n    [\"the number of odd elements 1n the str1ng 1 of the 1nput.\",\n     \"the number of odd elements 8n the str8ng 8 of the 8nput.\"]\n    \"\"\"\n",
+    "entry_point": "odd_count",
+    "tests": [
+      "assert odd_count(['1234567']) == ['the number of odd elements 4n the str4ng 4 of the 4nput.'], 'Test 1'",
+      "assert odd_count(['3', '11111111']) == ['the number of odd elements 1n the str1ng 1 of the 1nput.', 'the number of odd elements 8n the str8ng 8 of the 8nput.'], 'Test 2'",
+      "assert odd_count(['271', '137', '314']) == ['the number of odd elements 2n the str2ng 2 of the 2nput.', 'the number of odd elements 3n the str3ng 3 of the 3nput.', 'the number of odd elements 2n the str2ng 2 of the 2nput.']",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-115",
+    "prompt": "\ndef max_fill(grid, capacity):\n    import math\n    \"\"\"\n    You are given a rectangular grid of wells. Each row represents a single well,\n    and each 1 in a row represents a single unit of water.\n    Each well has a corresponding bucket that can be used to extract water from it, \n    and all buckets have the same capacity.\n    Your task is to use the buckets to empty the wells.\n    Output the number of times you need to lower the buckets.\n\n    Example 1:\n        Input: \n            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]\n            bucket_capacity : 1\n        Output: 6\n\n    Example 2:\n        Input: \n            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]\n            bucket_capacity : 2\n        Output: 5\n    \n    Example 3:\n        Input: \n            grid : [[0,0,0], [0,0,0]]\n            bucket_capacity : 5\n        Output: 0\n\n    Constraints:\n        * all wells have the same length\n        * 1 <= grid.length <= 10^2\n        * 1 <= grid[:,1].length <= 10^2\n        * grid[i][j] -> 0 | 1\n        * 1 <= capacity <= 10\n    \"\"\"\n",
+    "entry_point": "max_fill",
+    "tests": [
+      "assert True, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert max_fill([[0, 0, 1, 0], [0, 1, 0, 0], [1, 1, 1, 1]], 1) == 6, 'Error'",
+      "assert max_fill([[0, 0, 1, 1], [0, 0, 0, 0], [1, 1, 1, 1], [0, 1, 1, 1]], 2) == 5, 'Error'",
+      "assert max_fill([[0, 0, 0], [0, 0, 0]], 5) == 0, 'Error'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'",
+      "assert max_fill([[1, 1, 1, 1], [1, 1, 1, 1]], 2) == 4, 'Error'",
+      "assert max_fill([[1, 1, 1, 1], [1, 1, 1, 1]], 9) == 2, 'Error'"
+    ]
+  },
+  {
+    "id": "HE-116",
+    "prompt": "\ndef sort_array(arr):\n    \"\"\"\n    In this Kata, you have to sort an array of non-negative integers according to\n    number of ones in their binary representation in ascending order.\n    For similar number of ones, sort based on decimal value.\n\n    It must be implemented like this:\n    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]\n    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]\n    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]\n    \"\"\"\n",
+    "entry_point": "sort_array",
+    "tests": [
+      "assert True, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert sort_array([1, 5, 2, 3, 4]) == [1, 2, 4, 3, 5]",
+      "assert sort_array([-2, -3, -4, -5, -6]) == [-4, -2, -6, -5, -3]",
+      "assert sort_array([1, 0, 2, 3, 4]) == [0, 1, 2, 4, 3]",
+      "assert sort_array([]) == []",
+      "assert sort_array([2, 5, 77, 4, 5, 3, 5, 7, 2, 3, 4]) == [2, 2, 4, 4, 3, 3, 5, 5, 5, 7, 77]",
+      "assert sort_array([3, 6, 44, 12, 32, 5]) == [32, 3, 5, 6, 12, 44]",
+      "assert sort_array([2, 4, 8, 16, 32]) == [2, 4, 8, 16, 32]",
+      "assert sort_array([2, 4, 8, 16, 32]) == [2, 4, 8, 16, 32]",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-119",
+    "prompt": "\ndef match_parens(lst):\n    '''\n    You are given a list of two strings, both strings consist of open\n    parentheses '(' or close parentheses ')' only.\n    Your job is to check if it is possible to concatenate the two strings in\n    some order, that the resulting string will be good.\n    A string S is considered to be good if and only if all parentheses in S\n    are balanced. For example: the string '(())()' is good, while the string\n    '())' is not.\n    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.\n\n    Examples:\n    match_parens(['()(', ')']) == 'Yes'\n    match_parens([')', ')']) == 'No'\n    '''\n",
+    "entry_point": "match_parens",
+    "tests": [
+      "assert match_parens(['()(', ')']) == 'Yes'",
+      "assert match_parens([')', ')']) == 'No'",
+      "assert match_parens(['(()(())', '())())']) == 'No'",
+      "assert match_parens([')())', '(()()(']) == 'Yes'",
+      "assert match_parens(['(())))', '(()())((']) == 'Yes'",
+      "assert match_parens(['()', '())']) == 'No'",
+      "assert match_parens(['(()(', '()))()']) == 'Yes'",
+      "assert match_parens(['((((', '((())']) == 'No'",
+      "assert match_parens([')(()', '(()(']) == 'No'",
+      "assert match_parens([')(', ')(']) == 'No'",
+      "assert match_parens(['(', ')']) == 'Yes'",
+      "assert match_parens([')', '(']) == 'Yes'"
+    ]
+  },
+  {
+    "id": "HE-121",
+    "prompt": "\ndef solution(lst):\n    \"\"\"Given a non-empty list of integers, return the sum of all of the odd elements that are in even positions.\n    \n\n    Examples\n    solution([5, 8, 7, 1]) ==> 12\n    solution([3, 3, 3, 3, 3]) ==> 9\n    solution([30, 13, 24, 321]) ==>0\n    \"\"\"\n",
+    "entry_point": "solution",
+    "tests": [
+      "assert solution([5, 8, 7, 1]) == 12",
+      "assert solution([3, 3, 3, 3, 3]) == 9",
+      "assert solution([30, 13, 24, 321]) == 0",
+      "assert solution([5, 9]) == 5",
+      "assert solution([2, 4, 8]) == 0",
+      "assert solution([30, 13, 23, 32]) == 23",
+      "assert solution([3, 13, 2, 9]) == 3"
+    ]
+  },
+  {
+    "id": "HE-125",
+    "prompt": "\ndef split_words(txt):\n    '''\n    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you\n    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the\n    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25\n    Examples\n    split_words(\"Hello world!\") \u279e [\"Hello\", \"world!\"]\n    split_words(\"Hello,world!\") \u279e [\"Hello\", \"world!\"]\n    split_words(\"abcdef\") == 3 \n    '''\n",
+    "entry_point": "split_words",
+    "tests": [
+      "assert split_words('Hello world!') == ['Hello', 'world!']",
+      "assert split_words('Hello,world!') == ['Hello', 'world!']",
+      "assert split_words('Hello world,!') == ['Hello', 'world,!']",
+      "assert split_words('Hello,Hello,world !') == ['Hello,Hello,world', '!']",
+      "assert split_words('abcdef') == 3",
+      "assert split_words('aaabb') == 2",
+      "assert split_words('aaaBb') == 1",
+      "assert split_words('') == 0"
+    ]
+  },
+  {
+    "id": "HE-127",
+    "prompt": "\ndef intersection(interval1, interval2):\n    \"\"\"You are given two intervals,\n    where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).\n    The given intervals are closed which means that the interval (start, end)\n    includes both start and end.\n    For each given interval, it is assumed that its start is less or equal its end.\n    Your task is to determine whether the length of intersection of these two \n    intervals is a prime number.\n    Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)\n    which its length is 1, which not a prime number.\n    If the length of the intersection is a prime number, return \"YES\",\n    otherwise, return \"NO\".\n    If the two intervals don't intersect, return \"NO\".\n\n\n    [input/output] samples:\n    intersection((1, 2), (2, 3)) ==> \"NO\"\n    intersection((-1, 1), (0, 4)) ==> \"NO\"\n    intersection((-3, -1), (-5, 5)) ==> \"YES\"\n    \"\"\"\n",
+    "entry_point": "intersection",
+    "tests": [
+      "assert intersection((1, 2), (2, 3)) == 'NO'",
+      "assert intersection((-1, 1), (0, 4)) == 'NO'",
+      "assert intersection((-3, -1), (-5, 5)) == 'YES'",
+      "assert intersection((-2, 2), (-4, 0)) == 'YES'",
+      "assert intersection((-11, 2), (-1, -1)) == 'NO'",
+      "assert intersection((1, 2), (3, 5)) == 'NO'",
+      "assert intersection((1, 2), (1, 2)) == 'NO'",
+      "assert intersection((-2, -2), (-3, -2)) == 'NO'"
+    ]
+  },
+  {
+    "id": "HE-130",
+    "prompt": "\ndef tri(n):\n    \"\"\"Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in \n    the last couple centuries. However, what people don't know is Tribonacci sequence.\n    Tribonacci sequence is defined by the recurrence:\n    tri(1) = 3\n    tri(n) = 1 + n / 2, if n is even.\n    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.\n    For example:\n    tri(2) = 1 + (2 / 2) = 2\n    tri(4) = 3\n    tri(3) = tri(2) + tri(1) + tri(4)\n           = 2 + 3 + 3 = 8 \n    You are given a non-negative integer number n, you have to a return a list of the \n    first n + 1 numbers of the Tribonacci sequence.\n    Examples:\n    tri(3) = [1, 3, 2, 8]\n    \"\"\"\n",
+    "entry_point": "tri",
+    "tests": [
+      "assert tri(3) == [1, 3, 2.0, 8.0]",
+      "assert tri(4) == [1, 3, 2.0, 8.0, 3.0]",
+      "assert tri(5) == [1, 3, 2.0, 8.0, 3.0, 15.0]",
+      "assert tri(6) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0]",
+      "assert tri(7) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0]",
+      "assert tri(8) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0]",
+      "assert tri(9) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0, 35.0]",
+      "assert tri(20) == [1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0, 35.0, 6.0, 48.0, 7.0, 63.0, 8.0, 80.0, 9.0, 99.0, 10.0, 120.0, 11.0]",
+      "assert tri(0) == [1]",
+      "assert tri(1) == [1, 3]"
+    ]
+  },
+  {
+    "id": "HE-134",
+    "prompt": "\ndef check_if_last_char_is_a_letter(txt):\n    '''\n    Create a function that returns True if the last character\n    of a given string is an alphabetical character and is not\n    a part of a word, and False otherwise.\n    Note: \"word\" is a group of characters separated by space.\n\n    Examples:\n    check_if_last_char_is_a_letter(\"apple pie\") \u279e False\n    check_if_last_char_is_a_letter(\"apple pi e\") \u279e True\n    check_if_last_char_is_a_letter(\"apple pi e \") \u279e False\n    check_if_last_char_is_a_letter(\"\") \u279e False \n    '''\n",
+    "entry_point": "check_if_last_char_is_a_letter",
+    "tests": [
+      "assert check_if_last_char_is_a_letter('apple') == False",
+      "assert check_if_last_char_is_a_letter('apple pi e') == True",
+      "assert check_if_last_char_is_a_letter('eeeee') == False",
+      "assert check_if_last_char_is_a_letter('A') == True",
+      "assert check_if_last_char_is_a_letter('Pumpkin pie ') == False",
+      "assert check_if_last_char_is_a_letter('Pumpkin pie 1') == False",
+      "assert check_if_last_char_is_a_letter('') == False",
+      "assert check_if_last_char_is_a_letter('eeeee e ') == False",
+      "assert check_if_last_char_is_a_letter('apple pie') == False",
+      "assert check_if_last_char_is_a_letter('apple pi e ') == False",
+      "assert True"
+    ]
+  },
+  {
+    "id": "HE-138",
+    "prompt": "\ndef is_equal_to_sum_even(n):\n    \"\"\"Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers\n    Example\n    is_equal_to_sum_even(4) == False\n    is_equal_to_sum_even(6) == False\n    is_equal_to_sum_even(8) == True\n    \"\"\"\n",
+    "entry_point": "is_equal_to_sum_even",
+    "tests": [
+      "assert is_equal_to_sum_even(4) == False",
+      "assert is_equal_to_sum_even(6) == False",
+      "assert is_equal_to_sum_even(8) == True",
+      "assert is_equal_to_sum_even(10) == True",
+      "assert is_equal_to_sum_even(11) == False",
+      "assert is_equal_to_sum_even(12) == True",
+      "assert is_equal_to_sum_even(13) == False",
+      "assert is_equal_to_sum_even(16) == True"
+    ]
+  },
+  {
+    "id": "HE-142",
+    "prompt": "\n\n\ndef sum_squares(lst):\n    \"\"\"\"\n    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a \n    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not \n    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. \n    \n    Examples:\n    For lst = [1,2,3] the output should be 6\n    For lst = []  the output should be 0\n    For lst = [-1,-5,2,-1,-5]  the output should be -126\n    \"\"\"\n",
+    "entry_point": "sum_squares",
+    "tests": [
+      "assert sum_squares([1, 2, 3]) == 6",
+      "assert sum_squares([1, 4, 9]) == 14",
+      "assert sum_squares([]) == 0",
+      "assert sum_squares([1, 1, 1, 1, 1, 1, 1, 1, 1]) == 9",
+      "assert sum_squares([-1, -1, -1, -1, -1, -1, -1, -1, -1]) == -3",
+      "assert sum_squares([0]) == 0",
+      "assert sum_squares([-1, -5, 2, -1, -5]) == -126",
+      "assert sum_squares([-56, -99, 1, 0, -2]) == 3030",
+      "assert sum_squares([-1, 0, 0, 0, 0, 0, 0, 0, -1]) == 0",
+      "assert sum_squares([-16, -9, -2, 36, 36, 26, -20, 25, -40, 20, -4, 12, -26, 35, 37]) == -14196",
+      "assert sum_squares([-1, -3, 17, -1, -15, 13, -1, 14, -14, -12, -5, 14, -14, 6, 13, 11, 16, 16, 4, 10]) == -1448"
+    ]
+  },
+  {
+    "id": "HE-148",
+    "prompt": "\ndef bf(planet1, planet2):\n    '''\n    There are eight planets in our solar system: the closerst to the Sun \n    is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn, \n    Uranus, Neptune.\n    Write a function that takes two planet names as strings planet1 and planet2. \n    The function should return a tuple containing all planets whose orbits are \n    located between the orbit of planet1 and the orbit of planet2, sorted by \n    the proximity to the sun. \n    The function should return an empty tuple if planet1 or planet2\n    are not correct planet names. \n    Examples\n    bf(\"Jupiter\", \"Neptune\") ==> (\"Saturn\", \"Uranus\")\n    bf(\"Earth\", \"Mercury\") ==> (\"Venus\")\n    bf(\"Mercury\", \"Uranus\") ==> (\"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\")\n    '''\n",
+    "entry_point": "bf",
+    "tests": [
+      "assert bf('Jupiter', 'Neptune') == ('Saturn', 'Uranus'), 'First test error: ' + str(len(bf('Jupiter', 'Neptune')))",
+      "assert bf('Earth', 'Mercury') == ('Venus',), 'Second test error: ' + str(bf('Earth', 'Mercury'))",
+      "assert bf('Mercury', 'Uranus') == ('Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn'), 'Third test error: ' + str(bf('Mercury', 'Uranus'))",
+      "assert bf('Neptune', 'Venus') == ('Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus'), 'Fourth test error: ' + str(bf('Neptune', 'Venus'))",
+      "assert bf('Earth', 'Earth') == ()",
+      "assert bf('Mars', 'Earth') == ()",
+      "assert bf('Jupiter', 'Makemake') == ()"
+    ]
+  },
+  {
+    "id": "HE-156",
+    "prompt": "\ndef int_to_mini_roman(number):\n    \"\"\"\n    Given a positive integer, obtain its roman numeral equivalent as a string,\n    and return it in lowercase.\n    Restrictions: 1 <= num <= 1000\n\n    Examples:\n    >>> int_to_mini_roman(19) == 'xix'\n    >>> int_to_mini_roman(152) == 'clii'\n    >>> int_to_mini_roman(426) == 'cdxxvi'\n    \"\"\"\n",
+    "entry_point": "int_to_mini_roman",
+    "tests": [
+      "assert int_to_mini_roman(19) == 'xix'",
+      "assert int_to_mini_roman(152) == 'clii'",
+      "assert int_to_mini_roman(251) == 'ccli'",
+      "assert int_to_mini_roman(426) == 'cdxxvi'",
+      "assert int_to_mini_roman(500) == 'd'",
+      "assert int_to_mini_roman(1) == 'i'",
+      "assert int_to_mini_roman(4) == 'iv'",
+      "assert int_to_mini_roman(43) == 'xliii'",
+      "assert int_to_mini_roman(90) == 'xc'",
+      "assert int_to_mini_roman(94) == 'xciv'",
+      "assert int_to_mini_roman(532) == 'dxxxii'",
+      "assert int_to_mini_roman(900) == 'cm'",
+      "assert int_to_mini_roman(994) == 'cmxciv'",
+      "assert int_to_mini_roman(1000) == 'm'",
+      "assert True"
+    ]
+  },
+  {
+    "id": "HE-160",
+    "prompt": "\ndef do_algebra(operator, operand):\n    \"\"\"\n    Given two lists operator, and operand. The first list has basic algebra operations, and \n    the second list is a list of integers. Use the two given lists to build the algebric \n    expression and return the evaluation of this expression.\n\n    The basic algebra operations:\n    Addition ( + ) \n    Subtraction ( - ) \n    Multiplication ( * ) \n    Floor division ( // ) \n    Exponentiation ( ** ) \n\n    Example:\n    operator['+', '*', '-']\n    array = [2, 3, 4, 5]\n    result = 2 + 3 * 4 - 5\n    => result = 9\n\n    Note:\n        The length of operator list is equal to the length of operand list minus one.\n        Operand is a list of of non-negative integers.\n        Operator list has at least one operator, and operand list has at least two operands.\n\n    \"\"\"\n",
+    "entry_point": "do_algebra",
+    "tests": [
+      "assert do_algebra(['**', '*', '+'], [2, 3, 4, 5]) == 37",
+      "assert do_algebra(['+', '*', '-'], [2, 3, 4, 5]) == 9",
+      "assert do_algebra(['//', '*'], [7, 3, 4]) == 8, 'This prints if this assert fails 1 (good for debugging!)'",
+      "assert True, 'This prints if this assert fails 2 (also good for debugging!)'"
+    ]
+  },
+  {
+    "id": "HE-162",
+    "prompt": "\ndef string_to_md5(text):\n    \"\"\"\n    Given a string 'text', return its md5 hash equivalent string.\n    If 'text' is an empty string, return None.\n\n    >>> string_to_md5('Hello world') == '3e25960a79dbc69b674cd4ec67a72c62'\n    \"\"\"\n",
+    "entry_point": "string_to_md5",
+    "tests": [
+      "assert string_to_md5('Hello world') == '3e25960a79dbc69b674cd4ec67a72c62'",
+      "assert string_to_md5('') == None",
+      "assert string_to_md5('A B C') == '0ef78513b0cb8cef12743f5aeb35f888'",
+      "assert string_to_md5('password') == '5f4dcc3b5aa765d61d8327deb882cf99'",
+      "assert True"
+    ]
+  }
+]
